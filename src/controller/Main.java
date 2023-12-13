@@ -18,6 +18,9 @@ public class Main {
     public static void main(String[] args) {
         Controller controller = new Controller();
     }
+    /**
+     * DETTA ÄR MIN ALLDELES EGNA BRANCH OCH DEN ÄR JÄTTEFIN
+     */
 }
 
 //Test OLAOLAOLA

@@ -19,9 +19,15 @@ public class MainFrame extends JFrame {
 
 
 
+    }
+    public void buttonPressed(ButtonType pressedButton){
+        controller.buttonPressed(pressedButton);
+    }
 
-
-
+    public void buttonPressed2(String test){
+        controller.testmetod(test);
     }
 
 }
+
+

@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import controller.*;
 
 public class RightPanel extends JPanel {
     private MainFrame mainframe;
@@ -62,21 +63,25 @@ public class RightPanel extends JPanel {
         btnNyttSpel.setLocation(50, 450);
         btnNyttSpel.setSize(100,50);
         this.add(btnNyttSpel);
+        btnNyttSpel.addActionListener(l -> mainframe.buttonPressed(ButtonType.NyttSpel));
 
         btnLaddaSpel = new JButton("Ladda Spel");
         btnLaddaSpel.setLocation(155, 450);
         btnLaddaSpel.setSize(100,50);
         this.add(btnLaddaSpel);
+        btnLaddaSpel.addActionListener(l -> mainframe.buttonPressed(ButtonType.LaddaSpel));
 
         btnSparaSpel = new JButton("Spara Spel");
         btnSparaSpel.setLocation(260, 450);
         btnSparaSpel.setSize(100,50);
         this.add(btnSparaSpel);
+        btnSparaSpel.addActionListener(l -> mainframe.buttonPressed(ButtonType.SparaSpel));
 
         btnVisaHighScore = new JButton("Highscore");
         btnVisaHighScore.setLocation(365, 450);
         btnVisaHighScore.setSize(100,50);
         this.add(btnVisaHighScore);
+        btnVisaHighScore.addActionListener(l -> mainframe.buttonPressed(ButtonType.VisaHigh));
 
 
 

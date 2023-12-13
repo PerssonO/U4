@@ -35,18 +35,18 @@ public class LeftPanel extends JPanel {
     private void setup() {
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 10; j++) {
-               // array[i][j] = new JButton(String.valueOf(i) + String.valueOf(j));
-               // array[i][j].setEnabled(true);
-               // array[i][j].setSize(50, 50);
-                knapp = new JButton(String.valueOf(i) + String.valueOf(j));
-               knapp.setEnabled(true);
-               knapp.setSize(50, 50);
+                array[i][j] = new JButton(String.valueOf(i) + String.valueOf(j));
+                array[i][j].setEnabled(true);
+                array[i][j].setSize(50, 50);
+                //knapp = new JButton(String.valueOf(i) + String.valueOf(j));
+               //knapp.setEnabled(true);
+               //knapp.setSize(50, 50);
 
                //array[i][j].addActionListener(l -> mainframe.buttonPressed2(getComponents().toString()));
                 int iDENNA = i;
                 int jDENNA = j;
-                knapp.addActionListener(l -> mainframe.buttonPressed2(String.valueOf(iDENNA)+","+String.valueOf(jDENNA)));
-                this.add(knapp);
+                array[i][j].addActionListener(l -> mainframe.buttonPressed2(String.valueOf(iDENNA)+","+String.valueOf(jDENNA)));
+                this.add(array[i][j]);
 
 
 
@@ -54,5 +54,21 @@ public class LeftPanel extends JPanel {
             }
         }
 
+    }
+
+    public JButton getKnapp() {
+        return knapp;
+    }
+
+    public void setKnapp(JButton knapp) {
+        this.knapp = knapp;
+    }
+
+    public JButton getButton(int i, int j) {
+        return array[i][j];
+    }
+
+    public void setArray(JButton[][] array) {
+        this.array = array;
     }
 }

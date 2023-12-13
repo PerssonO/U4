@@ -28,6 +28,22 @@ public class MainFrame extends JFrame {
         controller.testmetod(test);
     }
 
+
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public void setMainPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 }
 
 

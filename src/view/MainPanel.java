@@ -20,4 +20,20 @@ public class MainPanel extends JPanel {
 
 
     }
+
+    public LeftPanel getLeftPanel() {
+        return leftPanel;
+    }
+
+    public void setLeftPanel(LeftPanel leftPanel) {
+        this.leftPanel = leftPanel;
+    }
+
+    public RightPanel getRightPanel() {
+        return rightPanel;
+    }
+
+    public void setRightPanel(RightPanel rightPanel) {
+        this.rightPanel = rightPanel;
+    }
 }

@@ -7,6 +7,8 @@ import view.*;
 import Model.*;
 import view.MainFrame;
 
+import java.awt.*;
+
 
 public class Controller {
     private MainFrame mainframe;
@@ -15,7 +17,7 @@ public class Controller {
     public Controller() {
         this.mainframe = new MainFrame(1000, 550, this);
         this.spelplan = new Spelplan(); //test för att kolla att spelplanen har rätt storlek.
-
+       // mainframe.getMainPanel().getLeftPanel().getButton(0,0).setEnabled(false);
     }
 
     public void buttonPressed(ButtonType button) {
@@ -46,4 +48,6 @@ public class Controller {
     public void testmetod(String test) {
         System.out.println(test);
     }
+
+
 }

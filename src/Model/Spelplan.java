@@ -75,4 +75,12 @@ public class Spelplan {
     public void setSkatt5(Skatt skatt5) {
         this.skatt5 = skatt5;
     }
+
+    public Ruta getRuta(int i, int j){
+        return spelplan[i][j];
+    }
+
+    public Skatt getSkatt(Skatt skatt){
+        return skatt;
+    }
 }

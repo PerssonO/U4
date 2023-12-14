@@ -131,4 +131,5 @@ public class Skatt {
     public void setB4(boolean b4) {
         this.b4 = b4;
     }
+
 }

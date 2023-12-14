@@ -75,4 +75,9 @@ public class Spelplan {
     public void setSkatt5(Skatt skatt5) {
         this.skatt5 = skatt5;
     }
+
+   public Ruta getTypeOfRuta (int i, int j){
+        return spelplan[i][j];
+
+   }
 }

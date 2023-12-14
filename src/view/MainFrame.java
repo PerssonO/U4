@@ -24,9 +24,7 @@ public class MainFrame extends JFrame {
         controller.buttonPressed(pressedButton);
     }
 
-    public void buttonPressed2(String test){
-        controller.testmetod(test);
-    }
+
 
 
     public MainPanel getMainPanel() {
@@ -43,6 +41,10 @@ public class MainFrame extends JFrame {
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public void skickaIndexArray(int[] indexPlatser) {
+        controller.updateLastMove(indexPlatser);
     }
 }
 

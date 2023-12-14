@@ -16,6 +16,8 @@ public class Skatt {
     private boolean b3;
     private boolean b4;
 
+    private boolean allaHittade = false;
+
     public Skatt(int poäng, int indexEttI, int indexEttJ, int förändringsVärde, int förändringsVärde2, int förändringsVärde3, int förändringsVärde4, int förändringsVärde5, int förändringsVärde6 ) {
         this.poäng = poäng;
         this.indexEttI = indexEttI;
@@ -132,4 +134,11 @@ public class Skatt {
         this.b4 = b4;
     }
 
+    public boolean isAllaHittade() {
+        return allaHittade;
+    }
+
+    public void setAllaHittade(boolean allaHittade) {
+        this.allaHittade = allaHittade;
+    }
 }

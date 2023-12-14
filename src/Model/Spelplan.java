@@ -83,4 +83,8 @@ public class Spelplan {
     public Skatt getSkatt(Skatt skatt){
         return skatt;
     }
+   public Ruta getTypeOfRuta (int i, int j){
+        return spelplan[i][j];
+
+   }
 }

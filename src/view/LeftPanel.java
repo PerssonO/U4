@@ -37,6 +37,7 @@ public class LeftPanel extends JPanel {
             for (int j = 0; j < 10; j++) {
                 array[i][j] = new JButton(String.valueOf(i) + String.valueOf(j));
                 array[i][j].setEnabled(true);
+                array[i][j].setFont(new Font(array[i][j].getFont().getName(), Font.PLAIN, 0));
                 array[i][j].setSize(50, 50);
                 //knapp = new JButton(String.valueOf(i) + String.valueOf(j));
                //knapp.setEnabled(true);
@@ -45,7 +46,11 @@ public class LeftPanel extends JPanel {
                //array[i][j].addActionListener(l -> mainframe.buttonPressed2(getComponents().toString()));
                 int iDENNA = i;
                 int jDENNA = j;
-                array[i][j].addActionListener(l -> mainframe.buttonPressed2(String.valueOf(iDENNA)+","+String.valueOf(jDENNA)));
+                int[] indexPlatser = new int[2];
+                indexPlatser[0] = iDENNA;
+                indexPlatser[1] = jDENNA;
+                array[i][j].addActionListener(l -> mainframe.skickaIndexArray(indexPlatser));
+                //array[i][j].addActionListener(l -> mainframe.buttonPressed(ButtonType.Spelknapp));
                 this.add(array[i][j]);
 
 

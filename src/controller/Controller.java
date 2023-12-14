@@ -15,6 +15,9 @@ public class Controller {
     private Spelplan spelplan;
 
     private int[] lastMove;
+    private Spelare player1;
+    private Spelare player2;
+    private int round = 1;
 
     public Controller() {
         this.mainframe = new MainFrame(1000, 550, this);
@@ -35,6 +38,8 @@ public class Controller {
                 //setUpSpelplan1(); //Lägger till rutor på en spelplan om man klickar på NyttSpel. Mer kod behövs här
                 setUpSpelplan2();
                 enableAllSpelknapp(); //sätter alla spelknappar till enable (aka man kan trycka på dom)
+                player1 = new Spelare();
+                player2 = new Spelare();
                 break;
             }
             case LaddaSpel: {
@@ -199,17 +204,37 @@ public class Controller {
 
     //Metoden som körs efter någon har tryckt på en spelknapp och lastmove har uppdaterats
     private void newRound() {
-        System.out.println(lastMove[0]);
-        System.out.println(lastMove[1]);
+        //System.out.println(lastMove[0]);
+        //System.out.println(lastMove[1]);
         disableButton();
         updateFärgSpelplan();
         updateSkatter();
         checkIfFälla();
         checkIfLastSkattruta();
-        
-        
+        printScore(); //Ta bor sen
         checkIfAllaSkatterHittade();
 
+        round++;
+        printPlayerTurn();
+        
+        
+
+
+    }
+
+    private void printPlayerTurn() {
+        System.out.println("-----------------------------------");
+        if (round%2 == 0){
+            System.out.println("Spelare 2 tur");
+        }
+        else {
+            System.out.println("Spelare 1 tur");
+        }
+    }
+
+    private void printScore() {
+        System.out.println("Player 1 " + player1.getScore());
+        System.out.println("Player 2 " + player2.getScore());
     }
 
     //Kollar om alla skatter är hittade och spelet är slut
@@ -234,26 +259,31 @@ public class Controller {
             System.out.println("1. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt1().setB1(false);
             spelplan.getSkatt1().setAllaHittade(true);
+            gePoäng(1);
         }
         if (spelplan.getSkatt2().isB1() && spelplan.getSkatt2().isB2() && spelplan.getSkatt2().isB3() && spelplan.getSkatt2().isB4()){
             System.out.println("2. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt2().setB1(false);
             spelplan.getSkatt2().setAllaHittade(true);
+            gePoäng(2);
         }
         if (spelplan.getSkatt3().isB1() && spelplan.getSkatt3().isB2() && spelplan.getSkatt3().isB3() && spelplan.getSkatt3().isB4()){
             System.out.println("3. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt3().setB1(false);
             spelplan.getSkatt3().setAllaHittade(true);
+            gePoäng(3);
         }
         if (spelplan.getSkatt4().isB1() && spelplan.getSkatt4().isB2() && spelplan.getSkatt4().isB3() && spelplan.getSkatt4().isB4()){
             System.out.println("4. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt4().setB1(false);
             spelplan.getSkatt4().setAllaHittade(true);
+            gePoäng(4);
         }
         if (spelplan.getSkatt5().isB1() && spelplan.getSkatt5().isB2() && spelplan.getSkatt5().isB3() && spelplan.getSkatt5().isB4()){
             System.out.println("5. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt5().setB1(false);
             spelplan.getSkatt5().setAllaHittade(true);
+            gePoäng(5);
         }
 
 
@@ -261,6 +291,37 @@ public class Controller {
 
 
     }
+
+    private void gePoäng(int i) {
+        int poäng = 0;
+        if (i == 1){
+        poäng = spelplan.getSkatt1().getPoäng();
+            }
+        if (i == 2) {
+            poäng = spelplan.getSkatt2().getPoäng();
+        }
+        if (i == 3){
+                poäng = spelplan.getSkatt3().getPoäng();
+            }
+        if (i == 4){
+            poäng = spelplan.getSkatt3().getPoäng();
+        }
+        if (i == 5){
+            poäng = spelplan.getSkatt3().getPoäng();
+        }
+
+        if (round%2 == 0) {
+        player2.setScore(player2.getScore()+poäng);
+        }
+        if (round%2 != 0) {
+            player1.setScore(player1.getScore() + poäng);
+        }
+
+    }
+
+
+
+
     //Metoden kollar om platsen är en fälla
     private void checkIfFälla() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {

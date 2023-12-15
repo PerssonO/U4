@@ -44,8 +44,8 @@ public class Controller {
             System.out.println("KNAPP NyttSpel");
             //setUpSpelplan1(); //Lägger till rutor på en spelplan om man klickar på NyttSpel. Mer kod behövs här
                 //setUpSpelplan2();
-                setUpSpelplan1();
-               // slumpadSpelPlan();
+                //setUpSpelplan1();
+                slumpadSpelPlan();
                 enableAllSpelknapp(); //sätter alla spelknappar till enable (aka man kan trycka på dom)
                 player1 = new Spelare();
                 player2 = new Spelare();
@@ -277,7 +277,7 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
         lagttill =false;
         do {
-            slump1 = random.nextInt(0,10);
+            slump1 = random.nextInt(1,10);
             slump2 = random.nextInt(4,10);
             spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, -2, 0, -3));
             if (checkRutaförSkatt(spelplan.getSkatt5())==false){
@@ -286,6 +286,7 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
             }
             else if (kollaGrannar(spelplan.getSkatt5())==false){
                 System.out.println("det finns grannar");
+                lagttill = false;
             }
             else {
                 spelplan.addRuta(spelplan.getSkatt5().getIndexEttI(), spelplan.getSkatt5().getIndexEttJ(), new SkattRuta());
@@ -402,6 +403,7 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
                 }
             } catch (Exception e) {
                 System.out.println("Något gick fel");
+                return false;
             }
                 return true;
         }

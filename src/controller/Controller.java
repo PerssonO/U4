@@ -30,6 +30,9 @@ public class Controller {
         this.lastMove = new int[2];
         this.infoRuta = new ArrayList<String>();
         disableAllSpelknapp(); // när programmet startar är alla spelknappar disabled,
+        /*
+        lägger till info i inforutan om vilken spelplan man vill starta när man klickar på nytt spel.
+         */
         infoRuta.add("Spelplan1");
         infoRuta.add("Spelplan2");
         infoRuta.add("Slumpad spelplan");
@@ -47,6 +50,9 @@ public class Controller {
             case NyttSpel:{
                 infoRuta.clear();
             System.out.println("KNAPP NyttSpel");
+            /*
+            man väljer vilken spelplan man vill starta från inforutan sen klickar man på nyttspel.
+             */
             setupspelplan(mainframe.getMainPanel().getRightPanel().getInfoFönster().getSelectedIndex());
             //setUpSpelplan1(); //Lägger till rutor på en spelplan om man klickar på NyttSpel. Mer kod behövs här
                 //setUpSpelplan2();
@@ -735,6 +741,10 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
     }
 
+
+    /*
+    metod som används för att välja vilken spelplan man vill använda.
+     */
     public void setupspelplan(int selectionindex){
         if (selectionindex == 0){
             setUpSpelplan1();

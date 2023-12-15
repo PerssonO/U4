@@ -8,6 +8,7 @@ import Model.*;
 import view.MainFrame;
 
 import java.awt.*;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,6 +22,8 @@ public class Controller {
     private Spelare player2;
     private int round = 1;
     private ArrayList<String> infoRuta;
+
+    int fällaCounter = 1;
 
     public Controller() {
         this.mainframe = new MainFrame(1000, 550, this);
@@ -432,7 +435,9 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
         checkIfFälla();
         checkIfLastSkattruta();
         updateScore();
+        updateLiv();
         checkIfAllaSkatterHittade();
+        checkIfDead();
         updateInfoRuta();
         round++;
         updatePlayerTurn();
@@ -440,6 +445,22 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
         
 
 
+    }
+
+    private void checkIfDead() {
+        if (player1.getLiv() == 0 ){
+            infoRuta.add("Spelare 1 förlorade sitt sista liv och har förlorat");
+            gameOver();
+        }
+        if (player2.getLiv() == 0 ){
+            infoRuta.add("Spelare 2 förlorade sitt sista liv och har förlorat");
+            gameOver();
+        }
+    }
+
+    private void updateLiv() {
+        mainframe.getMainPanel().getRightPanel().getPlayerLiv1().setText("Spelare 1 liv: " + player1.getLiv());
+        mainframe.getMainPanel().getRightPanel().getPlayerLiv2().setText("Spelare 2 liv: " + player2.getLiv());
     }
 
     private void updateInfoRuta() {
@@ -485,10 +506,16 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
                 spelplan.getSkatt4().isAllaHittade() &&
                 spelplan.getSkatt5().isAllaHittade()){
             infoRuta.add("Alla skatter är hittade och spelet är slut");
-            disableAllSpelknapp();
+            gameOver();
+
         }
 
     }
+
+    private void gameOver() {
+        disableAllSpelknapp();
+    }
+
     //Stänger av en knapp. Används så man inte kan trycka på samma spelknapp två gånger
     private void disableButton() {
         mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setEnabled(false);
@@ -572,9 +599,41 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
     private void checkIfFälla() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {
         System.out.println("Du gick i en fälla Kör en metod som gör något roligt");
-
+        gickIFälla();
         }
     }
+
+    private void gickIFälla() {
+    if (fällaCounter%2 != 0){
+        if (round%2 != 0){
+            player1.setLiv(player1.getLiv() - 1);
+        }
+        else {
+            player2.setLiv(player2.getLiv() - 1);
+        }
+        infoRuta.add("Du förlorade ett liv ");
+    }
+    else {
+        SecureRandom minslump = new SecureRandom();
+        int slumpadPoäng = minslump.nextInt(10, 100);
+
+        if (round%2 != 0){
+            player1.setScore(player1.getScore() - slumpadPoäng);
+        }
+        else {
+            player2.setScore(player2.getScore() - slumpadPoäng);
+        }
+        infoRuta.add("Du förlorade " + slumpadPoäng + " Poäng");
+
+
+    }
+
+
+    fällaCounter++;
+
+
+    }
+
     //Kollar med alla skatter om draget hamnade på en av deras indexplatser. Om rätt ändrar boolean till att den är hittad
     private void updateSkatter(){
         if (spelplan.getSkatt1().getIndexEttI() == lastMove[0] && spelplan.getSkatt1().getIndexEttJ() == lastMove[1]) {

@@ -15,6 +15,8 @@ public class RightPanel extends JPanel {
     private JButton btnVisaHighScore;
     private JLabel player1;
     private JLabel player2;
+    private JLabel playerLiv1;
+    private JLabel playerLiv2;
     private JLabel currentPlayer;
     private JList<Object> infoFönster;
 
@@ -41,13 +43,23 @@ public class RightPanel extends JPanel {
     private void setup() {
         player1 = new JLabel("Spelare 1 poäng: ");
         player1.setLocation(50, 0);
-        player1.setSize(400, 20);
+        player1.setSize(150, 20);
         this.add(player1);
 
         player2 = new JLabel("Spelare 2 poäng: ");
         player2.setLocation(50, 20);
-        player2.setSize(400, 20);
+        player2.setSize(150, 20);
         this.add(player2);
+
+        playerLiv1 = new JLabel("Spelare 1 liv: ");
+        playerLiv1.setLocation(200, 0);
+        playerLiv1.setSize(150, 20);
+        this.add(playerLiv1);
+
+        playerLiv2 = new JLabel("Spelare 2 liv: ");
+        playerLiv2.setLocation(200, 20);
+        playerLiv2.setSize(150, 20);
+        this.add(playerLiv2);
 
         currentPlayer = new JLabel("Vems tur: ");
         currentPlayer.setLocation(50, 40);
@@ -173,5 +185,21 @@ public class RightPanel extends JPanel {
 
     public void setInfoFönster(JList<Object> infoFönster) {
         this.infoFönster = infoFönster;
+    }
+
+    public JLabel getPlayerLiv1() {
+        return playerLiv1;
+    }
+
+    public void setPlayerLiv1(JLabel playerLiv1) {
+        this.playerLiv1 = playerLiv1;
+    }
+
+    public JLabel getPlayerLiv2() {
+        return playerLiv2;
+    }
+
+    public void setPlayerLiv2(JLabel playerLiv2) {
+        this.playerLiv2 = playerLiv2;
     }
 }

@@ -48,7 +48,6 @@ public class Controller {
 
         switch (button) {
             case NyttSpel:{
-                infoRuta.clear();
             System.out.println("KNAPP NyttSpel");
             /*
             man väljer vilken spelplan man vill starta från inforutan sen klickar man på nyttspel.
@@ -61,6 +60,8 @@ public class Controller {
                 enableAllSpelknapp(); //sätter alla spelknappar till enable (aka man kan trycka på dom)
                 player1 = new Spelare();
                 player2 = new Spelare();
+                infoRuta.clear();
+                updateInfoRuta();
                 break;
             }
             case LaddaSpel: {
@@ -528,6 +529,11 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
     private void gameOver() {
         disableAllSpelknapp();
+        infoRuta.clear();
+        infoRuta.add("Spelplan1");
+        infoRuta.add("Spelplan2");
+        infoRuta.add("Slumpad spelplan");
+        updateInfoRuta();
     }
 
     //Stänger av en knapp. Används så man inte kan trycka på samma spelknapp två gånger

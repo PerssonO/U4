@@ -30,6 +30,10 @@ public class Controller {
         this.lastMove = new int[2];
         this.infoRuta = new ArrayList<String>();
         disableAllSpelknapp(); // när programmet startar är alla spelknappar disabled,
+        infoRuta.add("Spelplan1");
+        infoRuta.add("Spelplan2");
+        infoRuta.add("Slumpad spelplan");
+        updateInfoRuta();
         //test för att kolla att spelplanen har rätt storlek.
         // mainframe.getMainPanel().getLeftPanel().getButton(0,0).setEnabled(false);
         //mainframe.getMainPanel().getLeftPanel().getButton(0,0).setBackground(Color.cyan);
@@ -41,11 +45,13 @@ public class Controller {
 
         switch (button) {
             case NyttSpel:{
+                infoRuta.clear();
             System.out.println("KNAPP NyttSpel");
+            setupspelplan(mainframe.getMainPanel().getRightPanel().getInfoFönster().getSelectedIndex());
             //setUpSpelplan1(); //Lägger till rutor på en spelplan om man klickar på NyttSpel. Mer kod behövs här
                 //setUpSpelplan2();
                 //setUpSpelplan1();
-                slumpadSpelPlan();
+                //slumpadSpelPlan();
                 enableAllSpelknapp(); //sätter alla spelknappar till enable (aka man kan trycka på dom)
                 player1 = new Spelare();
                 player2 = new Spelare();
@@ -727,6 +733,18 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
 
 
+    }
+
+    public void setupspelplan(int selectionindex){
+        if (selectionindex == 0){
+            setUpSpelplan1();
+        }
+        else if (selectionindex == 1){
+            setUpSpelplan2();
+        }
+        else if (selectionindex == 2){
+            slumpadSpelPlan();
+        }
     }
 
 

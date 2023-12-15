@@ -47,21 +47,20 @@ public class Controller {
     public void buttonPressed(ButtonType button) {
 
         switch (button) {
-            case NyttSpel:{
-            System.out.println("KNAPP NyttSpel");
+            case NyttSpel: {
+                System.out.println("KNAPP NyttSpel");
             /*
             man väljer vilken spelplan man vill starta från inforutan sen klickar man på nyttspel.
              */
-            setupspelplan(mainframe.getMainPanel().getRightPanel().getInfoFönster().getSelectedIndex());
-            //setUpSpelplan1(); //Lägger till rutor på en spelplan om man klickar på NyttSpel. Mer kod behövs här
+                setupspelplan(mainframe.getMainPanel().getRightPanel().getInfoFönster().getSelectedIndex());
+                //setUpSpelplan1(); //Lägger till rutor på en spelplan om man klickar på NyttSpel. Mer kod behövs här
                 //setUpSpelplan2();
                 //setUpSpelplan1();
                 //slumpadSpelPlan();
                 enableAllSpelknapp(); //sätter alla spelknappar till enable (aka man kan trycka på dom)
                 player1 = new Spelare();
                 player2 = new Spelare();
-                infoRuta.clear();
-                updateInfoRuta();
+                mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(false);
                 break;
             }
             case LaddaSpel: {
@@ -102,8 +101,7 @@ public class Controller {
         spelplan.addRuta(spelplan.getSkatt2().getIndexFyraI(), spelplan.getSkatt2().getIndexFyraJ(), new SkattRuta());
 
 
-
-        spelplan.setSkatt3(new Skatt(175, 3,3,0, 1, 1, 1, 2, 1));
+        spelplan.setSkatt3(new Skatt(175, 3, 3, 0, 1, 1, 1, 2, 1));
         spelplan.addRuta(spelplan.getSkatt3().getIndexEttI(), spelplan.getSkatt3().getIndexEttJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt3().getIndexTvåI(), spelplan.getSkatt3().getIndexTvåJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt3().getIndexTreI(), spelplan.getSkatt3().getIndexTreJ(), new SkattRuta());
@@ -161,8 +159,7 @@ public class Controller {
         spelplan.addRuta(spelplan.getSkatt2().getIndexFyraI(), spelplan.getSkatt2().getIndexFyraJ(), new SkattRuta());
 
 
-
-        spelplan.setSkatt3(new Skatt(175, 3,3,0, 1, 1, 1, 2, 1));
+        spelplan.setSkatt3(new Skatt(175, 3, 3, 0, 1, 1, 1, 2, 1));
         spelplan.addRuta(spelplan.getSkatt3().getIndexEttI(), spelplan.getSkatt3().getIndexEttJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt3().getIndexTvåI(), spelplan.getSkatt3().getIndexTvåJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt3().getIndexTreI(), spelplan.getSkatt3().getIndexTreJ(), new SkattRuta());
@@ -199,9 +196,10 @@ public class Controller {
             System.out.println();
         }
     }
-/*
-Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibland.
- */
+
+    /*
+    Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibland.
+     */
     public void slumpadSpelPlan() {
         this.spelplan = new Spelplan();
 
@@ -216,19 +214,17 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
         boolean lagttill = false;
         do {
-            slump1 = random.nextInt(1,9);
-            slump2 = random.nextInt(2,9);
+            slump1 = random.nextInt(1, 9);
+            slump2 = random.nextInt(2, 9);
 
             spelplan.setSkatt2(new Skatt(50, slump1, slump2, 0, -1, -1, -1, -1, -2));
             if (checkRutaförSkatt(spelplan.getSkatt2()) == false) {
                 System.out.println("nej kan inte lägga den här");
-                lagttill=false;
-            }
-            else if (kollaGrannar(spelplan.getSkatt2()) == false){
+                lagttill = false;
+            } else if (kollaGrannar(spelplan.getSkatt2()) == false) {
                 System.out.println("Det finns grannar");
-                lagttill=false;
-            }
-                else {
+                lagttill = false;
+            } else {
                 spelplan.addRuta(spelplan.getSkatt2().getIndexEttI(), spelplan.getSkatt2().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt2().getIndexTvåI(), spelplan.getSkatt2().getIndexTvåJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt2().getIndexTreI(), spelplan.getSkatt2().getIndexTreJ(), new SkattRuta());
@@ -237,7 +233,7 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
                 lagttill = true;
             }
         }
-        while(!lagttill);
+        while (!lagttill);
 
         lagttill = false;
         do {
@@ -246,15 +242,13 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
             slump2 = random.nextInt(2, 9);
 
             spelplan.setSkatt3(new Skatt(175, slump1, slump2, 0, -1, -1, -1, -2, -1));
-            if (checkRutaförSkatt(spelplan.getSkatt3())==false){
+            if (checkRutaförSkatt(spelplan.getSkatt3()) == false) {
                 System.out.println("Kan inte lägga till här");
-                lagttill=false;
-            }
-            else if (kollaGrannar(spelplan.getSkatt3()) == false){
+                lagttill = false;
+            } else if (kollaGrannar(spelplan.getSkatt3()) == false) {
                 System.out.println("Det finns grannar");
-                lagttill =false;
-            }
-            else {
+                lagttill = false;
+            } else {
 
                 spelplan.addRuta(spelplan.getSkatt3().getIndexEttI(), spelplan.getSkatt3().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt3().getIndexTvåI(), spelplan.getSkatt3().getIndexTvåJ(), new SkattRuta());
@@ -267,18 +261,16 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
         lagttill = false;
         do {
-            slump1 = random.nextInt(0,9);
-            slump2 = random.nextInt(0,9);
+            slump1 = random.nextInt(0, 9);
+            slump2 = random.nextInt(0, 9);
             spelplan.setSkatt4(new Skatt(150, slump1, slump2, 0, 1, 1, 1, 1, 0));
-            if (checkRutaförSkatt(spelplan.getSkatt4())==false){
+            if (checkRutaförSkatt(spelplan.getSkatt4()) == false) {
                 System.out.println("Kan inte lägga till här");
-                lagttill=false;
-            }
-            else if (kollaGrannar(spelplan.getSkatt4()) == false){
+                lagttill = false;
+            } else if (kollaGrannar(spelplan.getSkatt4()) == false) {
                 System.out.println("Här finns grannar");
-                lagttill=false;
-            }
-            else {
+                lagttill = false;
+            } else {
                 spelplan.addRuta(spelplan.getSkatt4().getIndexEttI(), spelplan.getSkatt4().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt4().getIndexTvåI(), spelplan.getSkatt4().getIndexTvåJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt4().getIndexTreI(), spelplan.getSkatt4().getIndexTreJ(), new SkattRuta());
@@ -288,20 +280,18 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
         }
         while (!lagttill);
 
-        lagttill =false;
+        lagttill = false;
         do {
-            slump1 = random.nextInt(1,10);
-            slump2 = random.nextInt(4,10);
+            slump1 = random.nextInt(1, 10);
+            slump2 = random.nextInt(4, 10);
             spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, -2, 0, -3));
-            if (checkRutaförSkatt(spelplan.getSkatt5())==false){
+            if (checkRutaförSkatt(spelplan.getSkatt5()) == false) {
                 System.out.println("kan inte lägga till här");
-                lagttill=false;
-            }
-            else if (kollaGrannar(spelplan.getSkatt5())==false){
+                lagttill = false;
+            } else if (kollaGrannar(spelplan.getSkatt5()) == false) {
                 System.out.println("det finns grannar");
                 lagttill = false;
-            }
-            else {
+            } else {
                 spelplan.addRuta(spelplan.getSkatt5().getIndexEttI(), spelplan.getSkatt5().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt5().getIndexTvåI(), spelplan.getSkatt5().getIndexTvåJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt5().getIndexTreI(), spelplan.getSkatt5().getIndexTreJ(), new SkattRuta());
@@ -310,42 +300,39 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
             }
         }
         while (!lagttill);
-        lagttill=false;
+        lagttill = false;
         do {
             slump1 = random.nextInt(10);
             slump2 = random.nextInt(10);
             if (spelplan.getRuta(slump1, slump2) instanceof SkattRuta) {
                 System.out.println("kan inte lägga till fälla");
-            }
-            else {
+            } else {
                 spelplan.addRuta(slump1, slump2, new FällaRuta());
-                lagttill=true;
+                lagttill = true;
             }
-        }while (!lagttill);
-        lagttill=false;
+        } while (!lagttill);
+        lagttill = false;
         do {
             slump1 = random.nextInt(10);
             slump2 = random.nextInt(10);
             if (spelplan.getRuta(slump1, slump2) instanceof SkattRuta) {
                 System.out.println("kan inte lägga till fälla");
-            }
-            else {
+            } else {
                 spelplan.addRuta(slump1, slump2, new FällaRuta());
-                lagttill=true;
+                lagttill = true;
             }
-        }while (!lagttill);
-        lagttill=false;
+        } while (!lagttill);
+        lagttill = false;
         do {
             slump1 = random.nextInt(10);
             slump2 = random.nextInt(10);
             if (spelplan.getRuta(slump1, slump2) instanceof SkattRuta) {
                 System.out.println("kan inte lägga till fälla");
-            }
-            else {
+            } else {
                 spelplan.addRuta(slump1, slump2, new FällaRuta());
-                lagttill=true;
+                lagttill = true;
             }
-        }while (!lagttill);
+        } while (!lagttill);
 
 
         for (int i = 0; i < spelplan.getSpelplan().length; i++) {
@@ -377,14 +364,13 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
     /*
     kollar så att man inte försöker lägga in en skatt på en ruta som redan är en skattruta.
      */
-    public boolean checkRutaförSkatt(Skatt skatt){
+    public boolean checkRutaförSkatt(Skatt skatt) {
         if (spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
-        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
-        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
-        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta){
+                || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
+                || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
+                || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -394,32 +380,32 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
      */
     public boolean kollaGrannar(Skatt skatt) {
-            try {
-                if (spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI() - 1, spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI() + 1, spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ() - 1) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ() + 1) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI() - 1, spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI() + 1, spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ() - 1) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ() + 1) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI() - 1, spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI() + 1, spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ() - 1) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ() + 1) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI() - 1, spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI() + 1, spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ() - 1) instanceof SkattRuta
-                        || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ() + 1) instanceof SkattRuta) {
-                    return false;
-
-                }
-            } catch (Exception e) {
-                System.out.println("Något gick fel");
+        try {
+            if (spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI() - 1, spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI() + 1, spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ() - 1) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ() + 1) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI() - 1, spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI() + 1, spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ() - 1) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ() + 1) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI() - 1, spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI() + 1, spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ() - 1) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ() + 1) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI() - 1, spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI() + 1, spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ() - 1) instanceof SkattRuta
+                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ() + 1) instanceof SkattRuta) {
                 return false;
+
             }
-                return true;
+        } catch (Exception e) {
+            System.out.println("Något gick fel");
+            return false;
         }
+        return true;
+    }
 
 
     //metod som gör alla spelknappar enabled
@@ -456,18 +442,16 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
         updateInfoRuta();
         round++;
         updatePlayerTurn();
-        
-        
 
 
     }
 
     private void checkIfDead() {
-        if (player1.getLiv() == 0 ){
+        if (player1.getLiv() == 0) {
             infoRuta.add("Spelare 1 förlorade sitt sista liv och har förlorat");
             gameOver();
         }
-        if (player2.getLiv() == 0 ){
+        if (player2.getLiv() == 0) {
             infoRuta.add("Spelare 2 förlorade sitt sista liv och har förlorat");
             gameOver();
         }
@@ -483,10 +467,9 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
     }
 
     private void updatePlayerTurn() {
-        if (round%2 == 0){
+        if (round % 2 == 0) {
             mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 2");
-        }
-        else {
+        } else {
             mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 1");
 
 
@@ -494,16 +477,15 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
     }
 
     private void updateScore() {
-        mainframe.getMainPanel().getRightPanel().getPlayer1().setText("Spelare 1 poäng: " + player1.getScore() );
-        mainframe.getMainPanel().getRightPanel().getPlayer2().setText("Spelare 2 poäng: " + player2.getScore() );
+        mainframe.getMainPanel().getRightPanel().getPlayer1().setText("Spelare 1 poäng: " + player1.getScore());
+        mainframe.getMainPanel().getRightPanel().getPlayer2().setText("Spelare 2 poäng: " + player2.getScore());
     }
 
     private void printPlayerTurn() {
         System.out.println("-----------------------------------");
-        if (round%2 == 0){
+        if (round % 2 == 0) {
             System.out.println("Spelare 2 tur");
-        }
-        else {
+        } else {
             System.out.println("Spelare 1 tur");
         }
     }
@@ -515,11 +497,11 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
     //Kollar om alla skatter är hittade och spelet är slut
     private void checkIfAllaSkatterHittade() {
-        if      (spelplan.getSkatt1().isAllaHittade() &&
+        if (spelplan.getSkatt1().isAllaHittade() &&
                 spelplan.getSkatt2().isAllaHittade() &&
                 spelplan.getSkatt3().isAllaHittade() &&
                 spelplan.getSkatt4().isAllaHittade() &&
-                spelplan.getSkatt5().isAllaHittade()){
+                spelplan.getSkatt5().isAllaHittade()) {
             infoRuta.add("Alla skatter är hittade och spelet är slut");
             gameOver();
 
@@ -538,35 +520,36 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
     //Stänger av en knapp. Används så man inte kan trycka på samma spelknapp två gånger
     private void disableButton() {
-        mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setEnabled(false);
+        mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setEnabled(false);
     }
+
     //Kollar om alla rutor i en skatt är hittade så att poäng kan delas ut
     private void checkIfLastSkattruta() {
-        if (spelplan.getSkatt1().isB1() && spelplan.getSkatt1().isB2() && spelplan.getSkatt1().isB3() && spelplan.getSkatt1().isB4()){
+        if (spelplan.getSkatt1().isB1() && spelplan.getSkatt1().isB2() && spelplan.getSkatt1().isB3() && spelplan.getSkatt1().isB4()) {
             System.out.println("1. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt1().setB1(false);
             spelplan.getSkatt1().setAllaHittade(true);
             gePoäng(1);
         }
-        if (spelplan.getSkatt2().isB1() && spelplan.getSkatt2().isB2() && spelplan.getSkatt2().isB3() && spelplan.getSkatt2().isB4()){
+        if (spelplan.getSkatt2().isB1() && spelplan.getSkatt2().isB2() && spelplan.getSkatt2().isB3() && spelplan.getSkatt2().isB4()) {
             System.out.println("2. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt2().setB1(false);
             spelplan.getSkatt2().setAllaHittade(true);
             gePoäng(2);
         }
-        if (spelplan.getSkatt3().isB1() && spelplan.getSkatt3().isB2() && spelplan.getSkatt3().isB3() && spelplan.getSkatt3().isB4()){
+        if (spelplan.getSkatt3().isB1() && spelplan.getSkatt3().isB2() && spelplan.getSkatt3().isB3() && spelplan.getSkatt3().isB4()) {
             System.out.println("3. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt3().setB1(false);
             spelplan.getSkatt3().setAllaHittade(true);
             gePoäng(3);
         }
-        if (spelplan.getSkatt4().isB1() && spelplan.getSkatt4().isB2() && spelplan.getSkatt4().isB3() && spelplan.getSkatt4().isB4()){
+        if (spelplan.getSkatt4().isB1() && spelplan.getSkatt4().isB2() && spelplan.getSkatt4().isB3() && spelplan.getSkatt4().isB4()) {
             System.out.println("4. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt4().setB1(false);
             spelplan.getSkatt4().setAllaHittade(true);
             gePoäng(4);
         }
-        if (spelplan.getSkatt5().isB1() && spelplan.getSkatt5().isB2() && spelplan.getSkatt5().isB3() && spelplan.getSkatt5().isB4()){
+        if (spelplan.getSkatt5().isB1() && spelplan.getSkatt5().isB2() && spelplan.getSkatt5().isB3() && spelplan.getSkatt5().isB4()) {
             System.out.println("5. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt5().setB1(false);
             spelplan.getSkatt5().setAllaHittade(true);
@@ -574,88 +557,80 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
         }
 
 
-
-
-
     }
 
-//Metoden delar ut poängen och uppdaterar infoRuta med vilken poäng man fick
+    //Metoden delar ut poängen och uppdaterar infoRuta med vilken poäng man fick
     private void gePoäng(int i) {
         int poäng = 0;
-        if (i == 1){
-        poäng = spelplan.getSkatt1().getPoäng();
-        infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
-            }
+        if (i == 1) {
+            poäng = spelplan.getSkatt1().getPoäng();
+            infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
+        }
         if (i == 2) {
             poäng = spelplan.getSkatt2().getPoäng();
             infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
-        if (i == 3){
-                poäng = spelplan.getSkatt3().getPoäng();
-            infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
-            }
-        if (i == 4){
+        if (i == 3) {
             poäng = spelplan.getSkatt3().getPoäng();
             infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
-        if (i == 5){
+        if (i == 4) {
+            poäng = spelplan.getSkatt3().getPoäng();
+            infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
+        }
+        if (i == 5) {
             poäng = spelplan.getSkatt3().getPoäng();
             infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
 
-        if (round%2 == 0) {
-        player2.setScore(player2.getScore()+poäng);
+        if (round % 2 == 0) {
+            player2.setScore(player2.getScore() + poäng);
         }
-        if (round%2 != 0) {
+        if (round % 2 != 0) {
             player1.setScore(player1.getScore() + poäng);
         }
 
     }
 
 
-
-
     //Metoden kollar om platsen är en fälla
     private void checkIfFälla() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {
-        System.out.println("Du gick i en fälla Kör en metod som gör något roligt");
-        gickIFälla();
+            System.out.println("Du gick i en fälla Kör en metod som gör något roligt");
+            gickIFälla();
         }
     }
 
     private void gickIFälla() {
-    if (fällaCounter%2 != 0){
-        if (round%2 != 0){
-            player1.setLiv(player1.getLiv() - 1);
+        if (fällaCounter % 2 != 0) {
+            if (round % 2 != 0) {
+                player1.setLiv(player1.getLiv() - 1);
+            } else {
+                player2.setLiv(player2.getLiv() - 1);
+            }
+            infoRuta.add("Du förlorade ett liv ");
+        } else {
+            SecureRandom minslump = new SecureRandom();
+            int slumpadPoäng = minslump.nextInt(10, 100);
+
+            if (round % 2 != 0) {
+                player1.setScore(player1.getScore() - slumpadPoäng);
+            } else {
+                player2.setScore(player2.getScore() - slumpadPoäng);
+            }
+            infoRuta.add("Du förlorade " + slumpadPoäng + " Poäng");
+
+
         }
-        else {
-            player2.setLiv(player2.getLiv() - 1);
-        }
-        infoRuta.add("Du förlorade ett liv ");
-    }
-    else {
-        SecureRandom minslump = new SecureRandom();
-        int slumpadPoäng = minslump.nextInt(10, 100);
-
-        if (round%2 != 0){
-            player1.setScore(player1.getScore() - slumpadPoäng);
-        }
-        else {
-            player2.setScore(player2.getScore() - slumpadPoäng);
-        }
-        infoRuta.add("Du förlorade " + slumpadPoäng + " Poäng");
 
 
-    }
-
-
-    fällaCounter++;
+        fällaCounter++;
 
 
     }
 
     //Kollar med alla skatter om draget hamnade på en av deras indexplatser. Om rätt ändrar boolean till att den är hittad
-    private void updateSkatter(){
+    private void updateSkatter() {
         if (spelplan.getSkatt1().getIndexEttI() == lastMove[0] && spelplan.getSkatt1().getIndexEttJ() == lastMove[1]) {
             spelplan.getSkatt1().setB1(true);
         }
@@ -723,26 +698,37 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
         }
 
 
-
     }
+
     //Uppdaterar färgen på knappen beroende på vilken sort det var OBS Lägger också till info till textrutan
     private void updateFärgSpelplan() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof TomRuta) {
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setBackground(Color.cyan);
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setForeground(Color.cyan);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.cyan);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.cyan);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
             infoRuta.add("Du tryckte på en tom ruta");
         }
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof SkattRuta) {
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setBackground(Color.yellow);
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setForeground(Color.yellow);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.yellow);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.yellow);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
             infoRuta.add("Grattis du tryckte på en skattruta");
         }
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setBackground(Color.red);
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setForeground(Color.red);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.red);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.red);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
             infoRuta.add("Tyvärr du tryckte på en fälla");
         }
-
 
 
     }
@@ -751,17 +737,18 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
     /*
     metod som används för att välja vilken spelplan man vill använda.
      */
-    public void setupspelplan(int selectionindex){
-        if (selectionindex == 0){
-            setUpSpelplan1();
+    public void setupspelplan(int selectionindex) {
+            switch (selectionindex) {
+                case 0:
+                    setUpSpelplan1();
+                    break;
+                case 1:
+                    setUpSpelplan2();
+                    break;
+                case 2:
+                    slumpadSpelPlan();
+                    break;
+            }
         }
-        else if (selectionindex == 1){
-            setUpSpelplan2();
-        }
-        else if (selectionindex == 2){
-            slumpadSpelPlan();
-        }
-    }
-
 
 }

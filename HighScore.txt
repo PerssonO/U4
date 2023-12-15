@@ -1,0 +1,3 @@
+Potatis,10
+topscore,100
+Potatis,20

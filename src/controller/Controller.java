@@ -7,10 +7,15 @@ import view.*;
 import Model.*;
 import view.MainFrame;
 
+import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 
 public class Controller {
@@ -29,7 +34,8 @@ public class Controller {
         this.mainframe = new MainFrame(1000, 550, this);
         this.lastMove = new int[2];
         this.infoRuta = new ArrayList<String>();
-        disableAllSpelknapp(); // när programmet startar är alla spelknappar disabled,
+        disableAllSpelknapp();
+        createHighScore();// när programmet startar är alla spelknappar disabled,
         /*
         lägger till info i inforutan om vilken spelplan man vill starta när man klickar på nytt spel.
          */
@@ -742,11 +748,34 @@ public class Controller {
 
     private void gameOver() {
         disableAllSpelknapp();
+        if (player1.getLiv() == 0) {
+            System.out.println("Spelare 2 vann matchen");
+        } else if (player2.getLiv() == 0) {
+            System.out.println("Spelare 1 vann matchen");
+        } else if (player1.getScore() > player2.getScore()) {
+            System.out.println("Spelare1 vann matchen");
+        } else if (player2.getScore() > player1.getScore()) {
+            System.out.println("Spelare2 vann matchen");
+        } else {
+            System.out.println("Matchen slutade lika");
+        }
+        String highscore = "highscore";
+        läsHighScore();
+        splitHighScore(läsHighScore());
+        /*
+        if (läsHighScore().size() < 10) {
+            System.out.println("Du kom med på highscorelistan");
+            String namn = JOptionPane.showInputDialog("ange namn: ") + "," + String.valueOf(player2.getScore());
+
+        }
+        */
+        //splitHighScore(läsHighScore());
         infoRuta.clear();
         infoRuta.add("Spelplan1");
         infoRuta.add("Spelplan2");
         infoRuta.add("Slumpad spelplan");
         updateInfoRuta();
+        mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(true);
     }
 
     //Stänger av en knapp. Används så man inte kan trycka på samma spelknapp två gånger
@@ -969,17 +998,82 @@ public class Controller {
     metod som används för att välja vilken spelplan man vill använda.
      */
     public void setupspelplan(int selectionindex) {
-            switch (selectionindex) {
-                case 0:
-                    setUpSpelplan1();
-                    break;
-                case 1:
-                    setUpSpelplan2();
-                    break;
-                case 2:
-                    slumpadSpelPlan();
-                    break;
+        switch (selectionindex) {
+            case 0:
+                setUpSpelplan1();
+                break;
+            case 1:
+                setUpSpelplan2();
+                break;
+            case 2:
+                slumpadSpelPlan();
+                break;
+        }
+    }
+
+    public static void createHighScore() {
+        try {
+            File highscore = new File("HighScore.txt");
+            if (highscore.createNewFile()) {
+                System.out.println("File created: " + highscore.getName());
+            } else {
+                System.out.println("File already exists.");
             }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<String> läsHighScore() {
+        ArrayList<String> highscoreArray = new ArrayList<>();
+        try {
+            File myObj = new File("highscore.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                highscoreArray.add(data);
+                System.out.println(data);
+            }
+            myReader.close();
+            System.out.println("test kan ta bort sen");
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return highscoreArray;
+    }
+
+    private static void splitHighScore(ArrayList<String> highscore) {
+        ArrayList<String> test1 =  new ArrayList<>();
+        for (int i = 0; i < highscore.size(); i++) {
+            String[] test = highscore.get(i).split(",");
+            String name = test[0];
+            String scoreString = test[1];
+            int number = Integer.parseInt(scoreString);
+            System.out.println(name + " " + number);
+            test1.add(test[0] +" " + test[1]);
+            Collections.sort(test1);
+        }
+        System.out.println(test1.toString());
+    }
+
+    public void writehighscore(ArrayList<String> test, String newhighscore) {
+        try {
+            FileWriter myWriter = new FileWriter("highscore.txt");
+            for (int i = 0; i < test.size(); i++) {
+                String test1 = test.get(i);
+                myWriter.write(test1 + "\n");
+            }
+            myWriter.write(newhighscore);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
 
+    }
+
+                
 }

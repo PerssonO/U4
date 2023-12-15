@@ -65,6 +65,11 @@ public class Controller {
             }
             case LaddaSpel: {
                 System.out.println("KNAPP LassaSpel");
+                for (int i = 0; i < 1001; i++){
+                testNySlumpad();
+                System.out.println("Spelplan  " + i);
+
+                }
                 break;
             }
             case VisaHigh: {
@@ -200,6 +205,232 @@ public class Controller {
     /*
     Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibland.
      */
+    public void testNySlumpad() {
+        this.spelplan = new Spelplan();
+        SecureRandom slump = new SecureRandom();
+        int slump1 = slump.nextInt(0, 7);
+        int slump2 = slump.nextInt(0, 10);
+
+        spelplan.setSkatt1(new Skatt(100, slump1, slump2, 1, 0, 2, 0, 3, 0));
+        spelplan.addRuta(spelplan.getSkatt1().getIndexEttI(), spelplan.getSkatt1().getIndexEttJ(), new SkattRuta());
+        spelplan.addRuta(spelplan.getSkatt1().getIndexTvåI(), spelplan.getSkatt1().getIndexTvåJ(), new SkattRuta());
+        spelplan.addRuta(spelplan.getSkatt1().getIndexTreI(), spelplan.getSkatt1().getIndexTreJ(), new SkattRuta());
+        spelplan.addRuta(spelplan.getSkatt1().getIndexFyraI(), spelplan.getSkatt1().getIndexFyraJ(), new SkattRuta());
+
+        testFyllgrannar();
+
+
+        boolean lagttill = false;
+        do {
+            slump1 = slump.nextInt(1, 9);
+            slump2 = slump.nextInt(2, 9);
+
+            spelplan.setSkatt2(new Skatt(50, slump1, slump2, 0, -1, -1, -1, -1, -2));
+            if (spelplan.getRuta(spelplan.getSkatt2().getIndexEttI(),spelplan.getSkatt2().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt2().getIndexTvåI(),spelplan.getSkatt2().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt2().getIndexTreI(),spelplan.getSkatt2().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt2().getIndexFyraI(),spelplan.getSkatt2().getIndexFyraJ()) == null)
+            {
+                spelplan.addRuta(spelplan.getSkatt2().getIndexEttI(), spelplan.getSkatt2().getIndexEttJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt2().getIndexTvåI(), spelplan.getSkatt2().getIndexTvåJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt2().getIndexTreI(), spelplan.getSkatt2().getIndexTreJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt2().getIndexFyraI(), spelplan.getSkatt2().getIndexFyraJ(), new SkattRuta());
+                lagttill = true;
+
+            }
+
+        }
+        while (!lagttill);
+
+        testFyllgrannar();
+
+
+        lagttill = false;
+        do {
+            slump1 = slump.nextInt(2, 9);
+            slump2 = slump.nextInt(2, 9);
+            spelplan.setSkatt3(new Skatt(175, slump1, slump2, 0, -1, -1, -1, -2, -1));
+
+            if (spelplan.getRuta(spelplan.getSkatt3().getIndexEttI(),spelplan.getSkatt3().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt3().getIndexTvåI(),spelplan.getSkatt3().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt3().getIndexTreI(),spelplan.getSkatt3().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt3().getIndexFyraI(),spelplan.getSkatt3().getIndexFyraJ()) == null)
+            {
+                spelplan.addRuta(spelplan.getSkatt3().getIndexEttI(), spelplan.getSkatt3().getIndexEttJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt3().getIndexTvåI(), spelplan.getSkatt3().getIndexTvåJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt3().getIndexTreI(), spelplan.getSkatt3().getIndexTreJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt3().getIndexFyraI(), spelplan.getSkatt3().getIndexFyraJ(), new SkattRuta());
+                lagttill = true;
+
+            }
+
+        }
+        while (!lagttill);
+        testFyllgrannar();
+
+
+        lagttill = false;
+        do {
+            slump1 = slump.nextInt(1, 9);
+            slump2 = slump.nextInt(2, 9);
+            spelplan.setSkatt4(new Skatt(150, slump1, slump2, 0, 1, 1, 1, 1, 0));
+
+
+            if (spelplan.getRuta(spelplan.getSkatt4().getIndexEttI(),spelplan.getSkatt4().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt4().getIndexTvåI(),spelplan.getSkatt4 ().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt4().getIndexTreI(),spelplan.getSkatt4().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt4().getIndexFyraI(),spelplan.getSkatt4().getIndexFyraJ()) == null)
+            {
+                spelplan.addRuta(spelplan.getSkatt4().getIndexEttI(), spelplan.getSkatt4().getIndexEttJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt4().getIndexTvåI(), spelplan.getSkatt4().getIndexTvåJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt4().getIndexTreI(), spelplan.getSkatt4().getIndexTreJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt4().getIndexFyraI(), spelplan.getSkatt4().getIndexFyraJ(), new SkattRuta());
+                lagttill = true;
+
+
+            }
+
+        }
+        while (!lagttill);
+        testFyllgrannar();
+
+
+
+
+        lagttill = false;
+        do {
+            slump1 = slump.nextInt(0, 10);
+            slump2 = slump.nextInt(3, 10);
+            spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, -2, 0, -3));
+
+            if (spelplan.getRuta(spelplan.getSkatt5().getIndexEttI(),spelplan.getSkatt5().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt5().getIndexTvåI(),spelplan.getSkatt5 ().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt5().getIndexTreI(),spelplan.getSkatt5().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt5().getIndexFyraI(),spelplan.getSkatt5().getIndexFyraJ()) == null)
+            {
+                spelplan.addRuta(spelplan.getSkatt5().getIndexEttI(), spelplan.getSkatt5().getIndexEttJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt5().getIndexTvåI(), spelplan.getSkatt5().getIndexTvåJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt5().getIndexTreI(), spelplan.getSkatt5().getIndexTreJ(), new SkattRuta());
+                spelplan.addRuta(spelplan.getSkatt5().getIndexFyraI(), spelplan.getSkatt5().getIndexFyraJ(), new SkattRuta());
+                lagttill = true;
+
+
+            }
+
+        }
+        while (!lagttill);
+
+        lagttill = false;
+        do {
+            slump1 = slump.nextInt(10);
+            slump2 = slump.nextInt(10);
+            if (spelplan.getRuta(slump1, slump2) != null) {
+
+            } else {
+                spelplan.addRuta(slump1, slump2, new FällaRuta());
+                lagttill = true;
+            }
+        } while (!lagttill);
+
+        lagttill = false;
+        do {
+            slump1 = slump.nextInt(10);
+            slump2 = slump.nextInt(10);
+            if (spelplan.getRuta(slump1, slump2) != null) {
+
+            } else {
+                spelplan.addRuta(slump1, slump2, new FällaRuta());
+                lagttill = true;
+            }
+        } while (!lagttill);
+
+
+        lagttill = false;
+        do {
+            slump1 = slump.nextInt(10);
+            slump2 = slump.nextInt(10);
+            if (spelplan.getRuta(slump1, slump2) != null) {
+
+            } else {
+                spelplan.addRuta(slump1, slump2, new FällaRuta());
+                lagttill = true;
+            }
+        } while (!lagttill);
+
+
+        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
+            for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
+                if (spelplan.getSpelplan()[i][j] == null) {
+                    spelplan.addRuta(i, j, new TomRuta());
+                }
+            }
+        }
+
+        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
+            for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
+                System.out.print(spelplan.getSpelplan()[i][j] + " ");
+            }
+            System.out.println();
+
+        }
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+        public void testFyllgrannar(){
+            for (int i = 0; i < spelplan.getSpelplan().length; i++) {
+                for (int j = 0; j < spelplan.getSpelplan().length; j++) {
+                    if (spelplan.getRuta(i,j) instanceof SkattRuta){
+                        try {
+                            if ((i-1 > -1) && spelplan.getRuta(i-1,j) == null){
+                                spelplan.addRuta(i-1,j, new TomRuta());
+                            }
+                            if ((i+1 < 10) && spelplan.getRuta(i+1,j) == null){
+                                spelplan.addRuta(i+1,j, new TomRuta());
+                            }
+                            if ((j+1 < 10) && spelplan.getRuta(i,j+1) == null){
+                                spelplan.addRuta(i,j+1, new TomRuta());
+                            }
+                            if ((j-1 > -1) && spelplan.getRuta(i,j-1) == null){
+                                spelplan.addRuta(i,j-1, new TomRuta());
+                            }
+
+                        }
+                        catch (Exception e) {
+                            System.out.println("FEL");
+                            //e.printStackTrace();
+
+                        }
+
+
+                    }
+
+
+                }
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+
+
     public void slumpadSpelPlan() {
         this.spelplan = new Spelplan();
 
@@ -282,7 +513,7 @@ public class Controller {
 
         lagttill = false;
         do {
-            slump1 = random.nextInt(1, 10);
+            slump1 = random.nextInt(0, 10);
             slump2 = random.nextInt(4, 10);
             spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, -2, 0, -3));
             if (checkRutaförSkatt(spelplan.getSkatt5()) == false) {

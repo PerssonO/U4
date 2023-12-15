@@ -8,6 +8,7 @@ import Model.*;
 import view.MainFrame;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -19,10 +20,12 @@ public class Controller {
     private Spelare player1;
     private Spelare player2;
     private int round = 1;
+    private ArrayList<String> infoRuta;
 
     public Controller() {
         this.mainframe = new MainFrame(1000, 550, this);
         this.lastMove = new int[2];
+        this.infoRuta = new ArrayList<String>();
         disableAllSpelknapp(); // när programmet startar är alla spelknappar disabled,
         //test för att kolla att spelplanen har rätt storlek.
         // mainframe.getMainPanel().getLeftPanel().getButton(0,0).setEnabled(false);
@@ -38,8 +41,8 @@ public class Controller {
             System.out.println("KNAPP NyttSpel");
             //setUpSpelplan1(); //Lägger till rutor på en spelplan om man klickar på NyttSpel. Mer kod behövs här
                 //setUpSpelplan2();
-                //setUpSpelplan1();
-                slumpadSpelPlan();
+                setUpSpelplan1();
+               // slumpadSpelPlan();
                 enableAllSpelknapp(); //sätter alla spelknappar till enable (aka man kan trycka på dom)
                 player1 = new Spelare();
                 player2 = new Spelare();
@@ -422,20 +425,41 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
     private void newRound() {
         //System.out.println(lastMove[0]);
         //System.out.println(lastMove[1]);
+        infoRuta.clear();
         disableButton();
         updateFärgSpelplan();
         updateSkatter();
         checkIfFälla();
         checkIfLastSkattruta();
-        printScore(); //Ta bor sen
+        updateScore();
         checkIfAllaSkatterHittade();
-
+        updateInfoRuta();
         round++;
-        printPlayerTurn();
+        updatePlayerTurn();
         
         
 
 
+    }
+
+    private void updateInfoRuta() {
+        mainframe.getMainPanel().getRightPanel().getInfoFönster().setListData(infoRuta.toArray());
+    }
+
+    private void updatePlayerTurn() {
+        if (round%2 == 0){
+            mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 2");
+        }
+        else {
+            mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 1");
+
+
+        }
+    }
+
+    private void updateScore() {
+        mainframe.getMainPanel().getRightPanel().getPlayer1().setText("Spelare 1 poäng: " + player1.getScore() );
+        mainframe.getMainPanel().getRightPanel().getPlayer2().setText("Spelare 2 poäng: " + player2.getScore() );
     }
 
     private void printPlayerTurn() {
@@ -460,7 +484,7 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
                 spelplan.getSkatt3().isAllaHittade() &&
                 spelplan.getSkatt4().isAllaHittade() &&
                 spelplan.getSkatt5().isAllaHittade()){
-            System.out.println("ALLA SKATTER HITTADE");
+            infoRuta.add("Alla skatter är hittade och spelet är slut");
             disableAllSpelknapp();
         }
 
@@ -508,22 +532,28 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
     }
 
+//Metoden delar ut poängen och uppdaterar infoRuta med vilken poäng man fick
     private void gePoäng(int i) {
         int poäng = 0;
         if (i == 1){
         poäng = spelplan.getSkatt1().getPoäng();
+        infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
             }
         if (i == 2) {
             poäng = spelplan.getSkatt2().getPoäng();
+            infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
         if (i == 3){
                 poäng = spelplan.getSkatt3().getPoäng();
+            infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
             }
         if (i == 4){
             poäng = spelplan.getSkatt3().getPoäng();
+            infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
         if (i == 5){
             poäng = spelplan.getSkatt3().getPoäng();
+            infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
 
         if (round%2 == 0) {
@@ -616,19 +646,22 @@ Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibl
 
 
     }
-    //Uppdaterar färgen på knappen beroende på vilken sort det var
+    //Uppdaterar färgen på knappen beroende på vilken sort det var OBS Lägger också till info till textrutan
     private void updateFärgSpelplan() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof TomRuta) {
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setBackground(Color.cyan);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setForeground(Color.cyan);
+            infoRuta.add("Du tryckte på en tom ruta");
         }
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof SkattRuta) {
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setBackground(Color.yellow);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setForeground(Color.yellow);
+            infoRuta.add("Grattis du tryckte på en skattruta");
         }
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setBackground(Color.red);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setForeground(Color.red);
+            infoRuta.add("Tyvärr du tryckte på en fälla");
         }
 
 

@@ -84,12 +84,94 @@ public class RightPanel extends JPanel {
         btnVisaHighScore.addActionListener(l -> mainframe.buttonPressed(ButtonType.VisaHigh));
 
 
+    }
 
+    public MainFrame getMainframe() {
+        return mainframe;
+    }
 
+    public void setMainframe(MainFrame mainframe) {
+        this.mainframe = mainframe;
+    }
 
+    public int getWith() {
+        return with;
+    }
 
+    public void setWith(int with) {
+        this.with = with;
+    }
 
+    @Override
+    public int getHeight() {
+        return height;
+    }
 
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
+    public JButton getBtnNyttSpel() {
+        return btnNyttSpel;
+    }
+
+    public void setBtnNyttSpel(JButton btnNyttSpel) {
+        this.btnNyttSpel = btnNyttSpel;
+    }
+
+    public JButton getBtnSparaSpel() {
+        return btnSparaSpel;
+    }
+
+    public void setBtnSparaSpel(JButton btnSparaSpel) {
+        this.btnSparaSpel = btnSparaSpel;
+    }
+
+    public JButton getBtnLaddaSpel() {
+        return btnLaddaSpel;
+    }
+
+    public void setBtnLaddaSpel(JButton btnLaddaSpel) {
+        this.btnLaddaSpel = btnLaddaSpel;
+    }
+
+    public JButton getBtnVisaHighScore() {
+        return btnVisaHighScore;
+    }
+
+    public void setBtnVisaHighScore(JButton btnVisaHighScore) {
+        this.btnVisaHighScore = btnVisaHighScore;
+    }
+
+    public JLabel getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(JLabel player1) {
+        this.player1 = player1;
+    }
+
+    public JLabel getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(JLabel player2) {
+        this.player2 = player2;
+    }
+
+    public JLabel getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(JLabel currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public JList<Object> getInfoFönster() {
+        return infoFönster;
+    }
+
+    public void setInfoFönster(JList<Object> infoFönster) {
+        this.infoFönster = infoFönster;
     }
 }

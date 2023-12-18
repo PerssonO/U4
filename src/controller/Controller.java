@@ -530,39 +530,7 @@ public class Controller {
             return true;
         }
     }
-
-    /*
-    metod som  kollar om det finns grannar till den nya skatten. Try catch används
-
-     */
-    public boolean kollaGrannar(Skatt skatt) {
-        try {
-            if (spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI() - 1, spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI() + 1, spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ() - 1) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ() + 1) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI() - 1, spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI() + 1, spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ() - 1) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ() + 1) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI() - 1, spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI() + 1, spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ() - 1) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ() + 1) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI() - 1, spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI() + 1, spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ() - 1) instanceof SkattRuta
-                    || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ() + 1) instanceof SkattRuta) {
-                return false;
-
-            }
-        } catch (Exception e) {
-            System.out.println("Något gick fel");
-            return false;
-        }
-        return true;
-    }
-
+    
 
     //metod som gör alla spelknappar enabled
     public void enableAllSpelknapp() {
@@ -769,11 +737,11 @@ public class Controller {
             infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
         if (i == 4) {
-            poäng = spelplan.getSkatt3().getPoäng();
+            poäng = spelplan.getSkatt4().getPoäng();
             infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
         if (i == 5) {
-            poäng = spelplan.getSkatt3().getPoäng();
+            poäng = spelplan.getSkatt5().getPoäng();
             infoRuta.add("Du grävde upp hela skatten och fick " + poäng + " poäng");
         }
 

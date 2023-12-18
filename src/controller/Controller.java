@@ -39,7 +39,7 @@ public class Controller {
         disableAllSpelknapp();
         this.hs = new ArrayList<HighScore>();
         setupHs();
-       // createHighScore();// när programmet startar är alla spelknappar disabled,
+        // createHighScore();// när programmet startar är alla spelknappar disabled,
         /*
         lägger till info i inforutan om vilken spelplan man vill starta när man klickar på nytt spel.
          */
@@ -90,7 +90,6 @@ public class Controller {
         */
 
 
-
     }
 
     public void buttonPressed(ButtonType button) {
@@ -114,15 +113,16 @@ public class Controller {
             }
             case LaddaSpel: {
                 System.out.println("KNAPP LassaSpel");
-                for (int i = 0; i < 1001; i++){
-                NySlumpad();
-                System.out.println("Spelplan  " + i);
+                for (int i = 0; i < 1001; i++) {
+                    NySlumpad();
+                    System.out.println("Spelplan  " + i);
 
                 }
                 break;
             }
             case VisaHigh: {
                 System.out.println("KNAPP VISA HS");
+                showHighscore();
                 break;
             }
             case SparaSpel: {
@@ -275,11 +275,10 @@ public class Controller {
             slump2 = slump.nextInt(2, 9);
 
             spelplan.setSkatt2(new Skatt(50, slump1, slump2, 0, -1, -1, -1, -1, -2));
-            if (spelplan.getRuta(spelplan.getSkatt2().getIndexEttI(),spelplan.getSkatt2().getIndexEttJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt2().getIndexTvåI(),spelplan.getSkatt2().getIndexTvåJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt2().getIndexTreI(),spelplan.getSkatt2().getIndexTreJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt2().getIndexFyraI(),spelplan.getSkatt2().getIndexFyraJ()) == null)
-            {
+            if (spelplan.getRuta(spelplan.getSkatt2().getIndexEttI(), spelplan.getSkatt2().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt2().getIndexTvåI(), spelplan.getSkatt2().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt2().getIndexTreI(), spelplan.getSkatt2().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt2().getIndexFyraI(), spelplan.getSkatt2().getIndexFyraJ()) == null) {
                 spelplan.addRuta(spelplan.getSkatt2().getIndexEttI(), spelplan.getSkatt2().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt2().getIndexTvåI(), spelplan.getSkatt2().getIndexTvåJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt2().getIndexTreI(), spelplan.getSkatt2().getIndexTreJ(), new SkattRuta());
@@ -300,11 +299,10 @@ public class Controller {
             slump2 = slump.nextInt(2, 9);
             spelplan.setSkatt3(new Skatt(175, slump1, slump2, 0, -1, -1, -1, -2, -1));
 
-            if (spelplan.getRuta(spelplan.getSkatt3().getIndexEttI(),spelplan.getSkatt3().getIndexEttJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt3().getIndexTvåI(),spelplan.getSkatt3().getIndexTvåJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt3().getIndexTreI(),spelplan.getSkatt3().getIndexTreJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt3().getIndexFyraI(),spelplan.getSkatt3().getIndexFyraJ()) == null)
-            {
+            if (spelplan.getRuta(spelplan.getSkatt3().getIndexEttI(), spelplan.getSkatt3().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt3().getIndexTvåI(), spelplan.getSkatt3().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt3().getIndexTreI(), spelplan.getSkatt3().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt3().getIndexFyraI(), spelplan.getSkatt3().getIndexFyraJ()) == null) {
                 spelplan.addRuta(spelplan.getSkatt3().getIndexEttI(), spelplan.getSkatt3().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt3().getIndexTvåI(), spelplan.getSkatt3().getIndexTvåJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt3().getIndexTreI(), spelplan.getSkatt3().getIndexTreJ(), new SkattRuta());
@@ -325,11 +323,10 @@ public class Controller {
             spelplan.setSkatt4(new Skatt(150, slump1, slump2, 0, 1, 1, 1, 1, 0));
 
 
-            if (spelplan.getRuta(spelplan.getSkatt4().getIndexEttI(),spelplan.getSkatt4().getIndexEttJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt4().getIndexTvåI(),spelplan.getSkatt4 ().getIndexTvåJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt4().getIndexTreI(),spelplan.getSkatt4().getIndexTreJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt4().getIndexFyraI(),spelplan.getSkatt4().getIndexFyraJ()) == null)
-            {
+            if (spelplan.getRuta(spelplan.getSkatt4().getIndexEttI(), spelplan.getSkatt4().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt4().getIndexTvåI(), spelplan.getSkatt4().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt4().getIndexTreI(), spelplan.getSkatt4().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt4().getIndexFyraI(), spelplan.getSkatt4().getIndexFyraJ()) == null) {
                 spelplan.addRuta(spelplan.getSkatt4().getIndexEttI(), spelplan.getSkatt4().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt4().getIndexTvåI(), spelplan.getSkatt4().getIndexTvåJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt4().getIndexTreI(), spelplan.getSkatt4().getIndexTreJ(), new SkattRuta());
@@ -344,19 +341,16 @@ public class Controller {
         testFyllgrannar();
 
 
-
-
         lagttill = false;
         do {
             slump1 = slump.nextInt(0, 10);
             slump2 = slump.nextInt(3, 10);
             spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, 0, 0, 0));
 
-            if (spelplan.getRuta(spelplan.getSkatt5().getIndexEttI(),spelplan.getSkatt5().getIndexEttJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt5().getIndexTvåI(),spelplan.getSkatt5 ().getIndexTvåJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt5().getIndexTreI(),spelplan.getSkatt5().getIndexTreJ()) == null &&
-                    spelplan.getRuta(spelplan.getSkatt5().getIndexFyraI(),spelplan.getSkatt5().getIndexFyraJ()) == null)
-            {
+            if (spelplan.getRuta(spelplan.getSkatt5().getIndexEttI(), spelplan.getSkatt5().getIndexEttJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt5().getIndexTvåI(), spelplan.getSkatt5().getIndexTvåJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt5().getIndexTreI(), spelplan.getSkatt5().getIndexTreJ()) == null &&
+                    spelplan.getRuta(spelplan.getSkatt5().getIndexFyraI(), spelplan.getSkatt5().getIndexFyraJ()) == null) {
                 spelplan.addRuta(spelplan.getSkatt5().getIndexEttI(), spelplan.getSkatt5().getIndexEttJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt5().getIndexTvåI(), spelplan.getSkatt5().getIndexTvåJ(), new SkattRuta());
                 spelplan.addRuta(spelplan.getSkatt5().getIndexTreI(), spelplan.getSkatt5().getIndexTreJ(), new SkattRuta());
@@ -424,60 +418,43 @@ public class Controller {
         }
 
 
-
-
-
-
-
-
     }
 
 
-
-
-        public void testFyllgrannar(){
-            for (int i = 0; i < spelplan.getSpelplan().length; i++) {
-                for (int j = 0; j < spelplan.getSpelplan().length; j++) {
-                    if (spelplan.getRuta(i,j) instanceof SkattRuta){
-                        try {
-                            if ((i-1 > -1) && spelplan.getRuta(i-1,j) == null){
-                                spelplan.addRuta(i-1,j, new TomRuta());
-                            }
-                            if ((i+1 < 10) && spelplan.getRuta(i+1,j) == null){
-                                spelplan.addRuta(i+1,j, new TomRuta());
-                            }
-                            if ((j+1 < 10) && spelplan.getRuta(i,j+1) == null){
-                                spelplan.addRuta(i,j+1, new TomRuta());
-                            }
-                            if ((j-1 > -1) && spelplan.getRuta(i,j-1) == null){
-                                spelplan.addRuta(i,j-1, new TomRuta());
-                            }
-
+    public void testFyllgrannar() {
+        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
+            for (int j = 0; j < spelplan.getSpelplan().length; j++) {
+                if (spelplan.getRuta(i, j) instanceof SkattRuta) {
+                    try {
+                        if ((i - 1 > -1) && spelplan.getRuta(i - 1, j) == null) {
+                            spelplan.addRuta(i - 1, j, new TomRuta());
                         }
-                        catch (Exception e) {
-                            System.out.println("FEL");
-                            //e.printStackTrace();
-
+                        if ((i + 1 < 10) && spelplan.getRuta(i + 1, j) == null) {
+                            spelplan.addRuta(i + 1, j, new TomRuta());
+                        }
+                        if ((j + 1 < 10) && spelplan.getRuta(i, j + 1) == null) {
+                            spelplan.addRuta(i, j + 1, new TomRuta());
+                        }
+                        if ((j - 1 > -1) && spelplan.getRuta(i, j - 1) == null) {
+                            spelplan.addRuta(i, j - 1, new TomRuta());
                         }
 
+                    } catch (Exception e) {
+                        System.out.println("FEL");
+                        //e.printStackTrace();
 
                     }
 
 
                 }
 
+
             }
-
-
 
         }
 
 
-
-
-
-
-
+    }
 
 
     //metod som gör alla spelknappar disabled
@@ -641,27 +618,42 @@ public class Controller {
     private void gameOver() {
         disableAllSpelknapp();
         if (player1.getLiv() == 0) {
-            System.out.println("Spelare 2 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare2 vann matchen med " + player2.getScore() + " men poäng");
+            if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
+                    deleteAndWriteHighscore(player2);
+            }
+            else {
+                writeToHighscoreIfLessThan10(player2);
+            }
         } else if (player2.getLiv() == 0) {
-            System.out.println("Spelare 1 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
+            if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
+                    deleteAndWriteHighscore(player2);
+                    System.out.println("nej");
+                }
+            else {
+                writeToHighscoreIfLessThan10(player2);
+            }
         } else if (player1.getScore() > player2.getScore()) {
-            System.out.println("Spelare1 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
+             if (hs.size() == 10 && hs.get(9).getPoäng() < player1.getScore()){
+                       deleteAndWriteHighscore(player1);
+                   }
+             else {
+                 writeToHighscoreIfLessThan10(player1);
+             }
         } else if (player2.getScore() > player1.getScore()) {
-            System.out.println("Spelare2 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare2 vann matchen med " + player2.getScore() + " men poäng");
+             if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
+                deleteAndWriteHighscore(player2);
+             }
+            else {
+                 writeToHighscoreIfLessThan10(player2);
+           }
         } else {
             System.out.println("Matchen slutade lika");
         }
 
-
-        if (läsHighScore().size() < 10) {
-            System.out.println("Du kom med på highscorelistan");
-            String namn = JOptionPane.showInputDialog("ange namn: ");
-            hs.add(new HighScore(namn, player2.getScore()));
-            hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
-            writehighscore(hs);
-
-
-        }
         infoRuta.clear();
         infoRuta.add("Spelplan1");
         infoRuta.add("Spelplan2");
@@ -885,7 +877,6 @@ public class Controller {
 
     }
 
-
     /*
     metod som används för att välja vilken spelplan man vill använda.
      */
@@ -917,6 +908,7 @@ public class Controller {
         }
     }
 
+         /*
     public static ArrayList<String> läsHighScore() {
         ArrayList<String> highscoreArray = new ArrayList<>();
         try {
@@ -935,9 +927,12 @@ public class Controller {
         }
         return highscoreArray;
     }
-    
+
+          */
+
 
     public void writehighscore(ArrayList<HighScore> test) {
+        hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
         try {
             FileWriter myWriter = new FileWriter("highscore.txt");
             for (int i = 0; i < test.size(); i++) {
@@ -953,5 +948,25 @@ public class Controller {
 
     }
 
-                
+    public void deleteAndWriteHighscore(Spelare spelare) {
+            hs.remove(9);
+            String namn = JOptionPane.showInputDialog("ange namn: ");
+            hs.add(new HighScore(namn, spelare.getScore()));
+
+            writehighscore(hs);
+    }
+
+    public void writeToHighscoreIfLessThan10(Spelare spelare) {
+        if (hs.size() < 10) {
+            System.out.println("Du kom med på highscorelistan");
+            String namn = JOptionPane.showInputDialog("ange namn: ");
+            hs.add(new HighScore(namn, spelare.getScore()));
+            writehighscore(hs);
+        }
+    }
+
+    private void showHighscore() {
+        hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
+        mainframe.getMainPanel().getRightPanel().getInfoFönster().setListData(hs.toArray());
+    }
 }

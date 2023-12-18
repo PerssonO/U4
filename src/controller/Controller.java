@@ -27,6 +27,7 @@ public class Controller {
     private Spelare player2;
     private int round = 1;
     private ArrayList<String> infoRuta;
+    private ArrayList<String> highscoreArray;
 
     int fällaCounter = 1;
 
@@ -1048,17 +1049,51 @@ public class Controller {
     }
 
     private static void splitHighScore(ArrayList<String> highscore) {
-        ArrayList<String> test1 =  new ArrayList<>();
+        //ArrayList<String> test1 =  new ArrayList<>();
+        String[] test1 = new String[10];
         for (int i = 0; i < highscore.size(); i++) {
-            String[] test = highscore.get(i).split(",");
-            String name = test[0];
-            String scoreString = test[1];
-            int number = Integer.parseInt(scoreString);
-            System.out.println(name + " " + number);
-            test1.add(test[0] +" "+ test[1]);
+            test1[i] = highscore.get(i);
         }
-        System.out.println(test1.toString());
-    }
+
+        for (int i = 0; i < test1.length-1; i++) {
+            if (test1[i] != null) {
+                int min = i;
+                String[] test = test1[i].split(",");
+                String namei = test[0];
+                String scoreStringi = test[1];
+                int numberi = Integer.parseInt(scoreStringi);
+                //String minscore = namei + " " + scoreStringi;
+                // System.out.println(namei + " " + numberi);
+                for (int j = i + 1; j < test1.length; j++) {
+                    if (test1[j] != null) {
+                        String[] testj = test1[j].split(",");
+                        String namej = testj[0];
+                        String scoreStringj = testj[1];
+                        int numberj = Integer.parseInt(scoreStringj);
+                        // System.out.println(namej + " " + numberj);
+                        if (numberj > numberi) {
+                            min = j;
+                            //    minscore = namej + " " + scoreStringj;
+                        }
+                    }
+                }
+
+                String temp = test1[i];
+                test1[i] = test1[min];
+                test1[min] = temp;
+            }
+        }
+
+            //test1.add(test[0] +" "+ test[1]);
+
+
+            System.out.println("");
+            System.out.println("");
+            for (int i = 0; i < test1.length; i++) {
+                System.out.println(test1[i]);
+            }
+        }
+    
 
     public void writehighscore(ArrayList<String> test, String newhighscore) {
         try {

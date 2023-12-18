@@ -1,3 +1,6 @@
 Potatis,10
+brotatis,20
 topscore,100
-Potatis,20
+ola,120
+oklartsomfan,8
+varför,102

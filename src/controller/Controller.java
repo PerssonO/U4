@@ -72,7 +72,7 @@ public class Controller {
             case LaddaSpel: {
                 System.out.println("KNAPP LassaSpel");
                 for (int i = 0; i < 1001; i++){
-                testNySlumpad();
+                NySlumpad();
                 System.out.println("Spelplan  " + i);
 
                 }
@@ -99,7 +99,7 @@ public class Controller {
     public void setUpSpelplan1() {
         this.spelplan = new Spelplan();
 
-        spelplan.setSkatt1(new Skatt(100, 0, 0, 1, 0, 2, 0, 3, 0));
+        spelplan.setSkatt1(new Skatt(100, 0, 0, 1, 0, 2, 0, 0, 0));
         spelplan.addRuta(spelplan.getSkatt1().getIndexEttI(), spelplan.getSkatt1().getIndexEttJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt1().getIndexTvåI(), spelplan.getSkatt1().getIndexTvåJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt1().getIndexTreI(), spelplan.getSkatt1().getIndexTreJ(), new SkattRuta());
@@ -118,7 +118,7 @@ public class Controller {
         spelplan.addRuta(spelplan.getSkatt3().getIndexTreI(), spelplan.getSkatt3().getIndexTreJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt3().getIndexFyraI(), spelplan.getSkatt3().getIndexFyraJ(), new SkattRuta());
 
-        spelplan.setSkatt4(new Skatt(150, 0, 8, 0, 1, 1, 1, 1, 0));
+        spelplan.setSkatt4(new Skatt(150, 0, 8, 0, 1, 0, 0, 0, 0));
         spelplan.addRuta(spelplan.getSkatt4().getIndexEttI(), spelplan.getSkatt4().getIndexEttJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt4().getIndexTvåI(), spelplan.getSkatt4().getIndexTvåJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt4().getIndexTreI(), spelplan.getSkatt4().getIndexTreJ(), new SkattRuta());
@@ -157,7 +157,7 @@ public class Controller {
     public void setUpSpelplan2() {
         this.spelplan = new Spelplan();
 
-        spelplan.setSkatt1(new Skatt(100, 3, 0, 1, 0, 2, 0, 3, 0));
+        spelplan.setSkatt1(new Skatt(100, 3, 0, 1, 0, 2, 0, 0, 0));
         spelplan.addRuta(spelplan.getSkatt1().getIndexEttI(), spelplan.getSkatt1().getIndexEttJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt1().getIndexTvåI(), spelplan.getSkatt1().getIndexTvåJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt1().getIndexTreI(), spelplan.getSkatt1().getIndexTreJ(), new SkattRuta());
@@ -182,7 +182,7 @@ public class Controller {
         spelplan.addRuta(spelplan.getSkatt4().getIndexTreI(), spelplan.getSkatt4().getIndexTreJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt4().getIndexFyraI(), spelplan.getSkatt4().getIndexFyraJ(), new SkattRuta());
 
-        spelplan.setSkatt5(new Skatt(400, 4, 9, 0, -1, 0, -2, 0, -3));
+        spelplan.setSkatt5(new Skatt(400, 4, 9, 0, -1, 0, 0, 0, 0));
         spelplan.addRuta(spelplan.getSkatt5().getIndexEttI(), spelplan.getSkatt5().getIndexEttJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt5().getIndexTvåI(), spelplan.getSkatt5().getIndexTvåJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt5().getIndexTreI(), spelplan.getSkatt5().getIndexTreJ(), new SkattRuta());
@@ -211,13 +211,13 @@ public class Controller {
     /*
     Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibland.
      */
-    public void testNySlumpad() {
+    public void NySlumpad() {
         this.spelplan = new Spelplan();
         SecureRandom slump = new SecureRandom();
         int slump1 = slump.nextInt(0, 7);
         int slump2 = slump.nextInt(0, 10);
 
-        spelplan.setSkatt1(new Skatt(100, slump1, slump2, 1, 0, 2, 0, 3, 0));
+        spelplan.setSkatt1(new Skatt(100, slump1, slump2, 1, 0, 2, 0, 0, 0));
         spelplan.addRuta(spelplan.getSkatt1().getIndexEttI(), spelplan.getSkatt1().getIndexEttJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt1().getIndexTvåI(), spelplan.getSkatt1().getIndexTvåJ(), new SkattRuta());
         spelplan.addRuta(spelplan.getSkatt1().getIndexTreI(), spelplan.getSkatt1().getIndexTreJ(), new SkattRuta());
@@ -307,7 +307,7 @@ public class Controller {
         do {
             slump1 = slump.nextInt(0, 10);
             slump2 = slump.nextInt(3, 10);
-            spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, -2, 0, -3));
+            spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, 0, 0, 0));
 
             if (spelplan.getRuta(spelplan.getSkatt5().getIndexEttI(),spelplan.getSkatt5().getIndexEttJ()) == null &&
                     spelplan.getRuta(spelplan.getSkatt5().getIndexTvåI(),spelplan.getSkatt5 ().getIndexTvåJ()) == null &&
@@ -437,7 +437,7 @@ public class Controller {
 
 
 
-    public void slumpadSpelPlan() {
+    /*public void slumpadSpelPlan() {
         this.spelplan = new Spelplan();
 
         Random random = new Random();
@@ -589,6 +589,8 @@ public class Controller {
         }
     }
 
+     */
+
     //metod som gör alla spelknappar disabled
     public void disableAllSpelknapp() {
         for (int i = 0; i <= 9; i++) {
@@ -597,6 +599,7 @@ public class Controller {
             }
         }
     }
+
 
     /*
     kollar så att man inte försöker lägga in en skatt på en ruta som redan är en skattruta.
@@ -1006,7 +1009,7 @@ public class Controller {
                 setUpSpelplan2();
                 break;
             case 2:
-                slumpadSpelPlan();
+                NySlumpad();
                 break;
         }
     }
@@ -1052,8 +1055,7 @@ public class Controller {
             String scoreString = test[1];
             int number = Integer.parseInt(scoreString);
             System.out.println(name + " " + number);
-            test1.add(test[0] +" " + test[1]);
-            Collections.sort(test1);
+            test1.add(test[0] +" "+ test[1]);
         }
         System.out.println(test1.toString());
     }

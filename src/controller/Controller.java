@@ -118,11 +118,11 @@ public class Controller {
                 player1 = new Spelare();
                 player2 = new Spelare();
                 mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(false);
+                round =1;
+                fällaCounter =1;
                 updateScore();
                 updateLiv();
                 updatePlayerTurn();
-                round =1;
-                fällaCounter =1;
                 break;
             }
             case LaddaSpel: {
@@ -153,6 +153,9 @@ public class Controller {
         for (int i = 0; i <10; i++){
             for (int j = 0; j < 10; j++){
                 mainframe.getMainPanel().getLeftPanel().getButton(i,j).setBackground(Color.lightGray);
+                mainframe.getMainPanel().getLeftPanel().getButton(i,j).setBorderPainted(true);
+                mainframe.getMainPanel().getLeftPanel().getButton(i,j).setOpaque(false);
+
             }
 
         }
@@ -894,12 +897,12 @@ public class Controller {
     //Uppdaterar färgen på knappen beroende på vilken sort det var OBS Lägger också till info till textrutan
     private void updateFärgSpelplan() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof TomRuta) {
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.cyan);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.black);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.cyan);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.black);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
-            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
+            mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);
             infoRuta.add("Du tryckte på en tom ruta");
         }
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof SkattRuta) {

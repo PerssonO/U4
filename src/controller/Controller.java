@@ -135,6 +135,7 @@ public class Controller {
             }
             case VisaHigh: {
                 System.out.println("KNAPP VISA HS");
+                showHighscore();
                 break;
             }
             case SparaSpel: {
@@ -664,27 +665,50 @@ public class Controller {
         disableAllSpelknapp();
         if (player1.getLiv() == 0) {
             System.out.println("Spelare 2 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare2 vann matchen med " + player2.getScore() + " men poäng");
+            if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
+                deleteAndWriteHighscore(player2);
+            }
+            else {
+                writeToHighscoreIfLessThan10(player2);
+            }
         } else if (player2.getLiv() == 0) {
             System.out.println("Spelare 1 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
+            if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
+                deleteAndWriteHighscore(player2);
+                System.out.println("nej");
+            }
+            else {
+                writeToHighscoreIfLessThan10(player2);
+            }
         } else if (player1.getScore() > player2.getScore()) {
             System.out.println("Spelare1 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
+            if (hs.size() == 10 && hs.get(9).getPoäng() < player1.getScore()){
+                deleteAndWriteHighscore(player1);
+            }
+            else {
+                writeToHighscoreIfLessThan10(player1);
+            }
         } else if (player2.getScore() > player1.getScore()) {
             System.out.println("Spelare2 vann matchen");
+            JOptionPane.showMessageDialog(null, "Spelare2 vann matchen med " + player2.getScore() + " men poäng");
+            if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
+                deleteAndWriteHighscore(player2);
+            }
+            else {
+                writeToHighscoreIfLessThan10(player2);
+            }
         } else {
             System.out.println("Matchen slutade lika");
         }
 
-
-        if (läsHighScore().size() < 10) {
-            System.out.println("Du kom med på highscorelistan");
-            String namn = JOptionPane.showInputDialog("ange namn: ");
-            hs.add(new HighScore(namn, player2.getScore()));
-            hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
-            writehighscore(hs);
-
-
-        }
-        
+        infoRuta.clear();
+        infoRuta.add("Spelplan1");
+        infoRuta.add("Spelplan2");
+        infoRuta.add("Slumpad spelplan");
+        updateInfoRuta();
         mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(true);
     }
 
@@ -901,8 +925,8 @@ public class Controller {
         }
 
 
-    }
 
+    }
 
     /*
     metod som används för att välja vilken spelplan man vill använda.
@@ -935,26 +959,6 @@ public class Controller {
         }
     }
 
-    public static ArrayList<String> läsHighScore() {
-        ArrayList<String> highscoreArray = new ArrayList<>();
-        try {
-            File myObj = new File("highscore.txt");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                highscoreArray.add(data);
-                System.out.println(data);
-            }
-            myReader.close();
-            System.out.println("test kan ta bort sen");
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        return highscoreArray;
-    }
-    
-
     public void writehighscore(ArrayList<HighScore> test) {
         try {
             FileWriter myWriter = new FileWriter("highscore.txt");
@@ -971,5 +975,25 @@ public class Controller {
 
     }
 
-                
+    public void deleteAndWriteHighscore(Spelare spelare) {
+        hs.remove(9);
+        String namn = JOptionPane.showInputDialog("ange namn: ");
+        hs.add(new HighScore(namn, spelare.getScore()));
+
+        writehighscore(hs);
+    }
+
+    public void writeToHighscoreIfLessThan10(Spelare spelare) {
+        if (hs.size() < 10) {
+            System.out.println("Du kom med på highscorelistan");
+            String namn = JOptionPane.showInputDialog("ange namn: ");
+            hs.add(new HighScore(namn, spelare.getScore()));
+            writehighscore(hs);
+        }
+    }
+
+    private void showHighscore() {
+        hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
+        mainframe.getMainPanel().getRightPanel().getInfoFönster().setListData(hs.toArray());
+    }
 }

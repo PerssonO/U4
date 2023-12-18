@@ -37,6 +37,7 @@ public class LeftPanel extends JPanel {
             for (int j = 0; j < 10; j++) {
                 array[i][j] = new JButton(String.valueOf(i) + String.valueOf(j));
                 array[i][j].setEnabled(true);
+                array[i][j].setBackground(Color.lightGray);
                 array[i][j].setFont(new Font(array[i][j].getFont().getName(), Font.PLAIN, 0));
                 array[i][j].setSize(50, 50);
                 //knapp = new JButton(String.valueOf(i) + String.valueOf(j));

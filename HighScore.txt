@@ -1,4 +1,5 @@
 test,675
+null,270
 ola,120
 varför,102
 topscore,100

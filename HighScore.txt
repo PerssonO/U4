@@ -1,6 +1,10 @@
-Potatis,10
+Potatis,10,
 brotatis,20
 topscore,100
 ola,120
 oklartsomfan,8
 varför,102
+kalle,104
+nisse,5
+berit,10
+Magnus,78

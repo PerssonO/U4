@@ -28,6 +28,7 @@ public class Controller {
     private int round = 1;
     private ArrayList<String> infoRuta;
     private ArrayList<String> highscoreArray;
+    ArrayList<HighScore> hs;
 
     int fällaCounter = 1;
 
@@ -36,7 +37,9 @@ public class Controller {
         this.lastMove = new int[2];
         this.infoRuta = new ArrayList<String>();
         disableAllSpelknapp();
-        createHighScore();// när programmet startar är alla spelknappar disabled,
+        this.hs = new ArrayList<HighScore>();
+        setupHs();
+       // createHighScore();// när programmet startar är alla spelknappar disabled,
         /*
         lägger till info i inforutan om vilken spelplan man vill starta när man klickar på nytt spel.
          */
@@ -48,6 +51,43 @@ public class Controller {
         // mainframe.getMainPanel().getLeftPanel().getButton(0,0).setEnabled(false);
         //mainframe.getMainPanel().getLeftPanel().getButton(0,0).setBackground(Color.cyan);
         //mainframe.getMainPanel().getLeftPanel().getButton(0,0).setForeground(Color.cyan);
+
+    }
+
+    private void setupHs() {
+
+        Scanner myReader = null;
+        try {
+            File myObj = new File("highscore.txt");
+            myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+
+                String[] denna = data.split(",");
+                if (denna.length == 2) {
+                    String namn = denna[0];
+                    int poäng = Integer.parseInt(denna[1]);
+                    hs.add(new HighScore(namn, poäng));
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        myReader.close();
+
+        hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
+        System.out.println(hs.toString());
+
+
+
+        hs.remove(9);
+        hs.add(new HighScore("BARAFUNKA", 500 ));
+        hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
+        System.out.println(hs.toString());
+
+
 
     }
 
@@ -437,160 +477,6 @@ public class Controller {
 
 
 
-
-    /*public void slumpadSpelPlan() {
-        this.spelplan = new Spelplan();
-
-        Random random = new Random();
-        int slump1 = random.nextInt(7);
-        int slump2 = random.nextInt(10);
-        spelplan.setSkatt1(new Skatt(100, 1, 1, 1, 0, 2, 0, 3, 0));
-        spelplan.addRuta(spelplan.getSkatt1().getIndexEttI(), spelplan.getSkatt1().getIndexEttJ(), new SkattRuta());
-        spelplan.addRuta(spelplan.getSkatt1().getIndexTvåI(), spelplan.getSkatt1().getIndexTvåJ(), new SkattRuta());
-        spelplan.addRuta(spelplan.getSkatt1().getIndexTreI(), spelplan.getSkatt1().getIndexTreJ(), new SkattRuta());
-        spelplan.addRuta(spelplan.getSkatt1().getIndexFyraI(), spelplan.getSkatt1().getIndexFyraJ(), new SkattRuta());
-
-        boolean lagttill = false;
-        do {
-            slump1 = random.nextInt(1, 9);
-            slump2 = random.nextInt(2, 9);
-
-            spelplan.setSkatt2(new Skatt(50, slump1, slump2, 0, -1, -1, -1, -1, -2));
-            if (checkRutaförSkatt(spelplan.getSkatt2()) == false) {
-                System.out.println("nej kan inte lägga den här");
-                lagttill = false;
-            } else if (kollaGrannar(spelplan.getSkatt2()) == false) {
-                System.out.println("Det finns grannar");
-                lagttill = false;
-            } else {
-                spelplan.addRuta(spelplan.getSkatt2().getIndexEttI(), spelplan.getSkatt2().getIndexEttJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt2().getIndexTvåI(), spelplan.getSkatt2().getIndexTvåJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt2().getIndexTreI(), spelplan.getSkatt2().getIndexTreJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt2().getIndexFyraI(), spelplan.getSkatt2().getIndexFyraJ(), new SkattRuta());
-                System.out.println(spelplan.getRuta(slump1, slump2));
-                lagttill = true;
-            }
-        }
-        while (!lagttill);
-
-        lagttill = false;
-        do {
-
-            slump1 = random.nextInt(2, 9);
-            slump2 = random.nextInt(2, 9);
-
-            spelplan.setSkatt3(new Skatt(175, slump1, slump2, 0, -1, -1, -1, -2, -1));
-            if (checkRutaförSkatt(spelplan.getSkatt3()) == false) {
-                System.out.println("Kan inte lägga till här");
-                lagttill = false;
-            } else if (kollaGrannar(spelplan.getSkatt3()) == false) {
-                System.out.println("Det finns grannar");
-                lagttill = false;
-            } else {
-
-                spelplan.addRuta(spelplan.getSkatt3().getIndexEttI(), spelplan.getSkatt3().getIndexEttJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt3().getIndexTvåI(), spelplan.getSkatt3().getIndexTvåJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt3().getIndexTreI(), spelplan.getSkatt3().getIndexTreJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt3().getIndexFyraI(), spelplan.getSkatt3().getIndexFyraJ(), new SkattRuta());
-                lagttill = true;
-            }
-        }
-        while (!lagttill);
-
-        lagttill = false;
-        do {
-            slump1 = random.nextInt(0, 9);
-            slump2 = random.nextInt(0, 9);
-            spelplan.setSkatt4(new Skatt(150, slump1, slump2, 0, 1, 1, 1, 1, 0));
-            if (checkRutaförSkatt(spelplan.getSkatt4()) == false) {
-                System.out.println("Kan inte lägga till här");
-                lagttill = false;
-            } else if (kollaGrannar(spelplan.getSkatt4()) == false) {
-                System.out.println("Här finns grannar");
-                lagttill = false;
-            } else {
-                spelplan.addRuta(spelplan.getSkatt4().getIndexEttI(), spelplan.getSkatt4().getIndexEttJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt4().getIndexTvåI(), spelplan.getSkatt4().getIndexTvåJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt4().getIndexTreI(), spelplan.getSkatt4().getIndexTreJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt4().getIndexFyraI(), spelplan.getSkatt4().getIndexFyraJ(), new SkattRuta());
-                lagttill = true;
-            }
-        }
-        while (!lagttill);
-
-        lagttill = false;
-        do {
-            slump1 = random.nextInt(0, 10);
-            slump2 = random.nextInt(4, 10);
-            spelplan.setSkatt5(new Skatt(400, slump1, slump2, 0, -1, 0, -2, 0, -3));
-            if (checkRutaförSkatt(spelplan.getSkatt5()) == false) {
-                System.out.println("kan inte lägga till här");
-                lagttill = false;
-            } else if (kollaGrannar(spelplan.getSkatt5()) == false) {
-                System.out.println("det finns grannar");
-                lagttill = false;
-            } else {
-                spelplan.addRuta(spelplan.getSkatt5().getIndexEttI(), spelplan.getSkatt5().getIndexEttJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt5().getIndexTvåI(), spelplan.getSkatt5().getIndexTvåJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt5().getIndexTreI(), spelplan.getSkatt5().getIndexTreJ(), new SkattRuta());
-                spelplan.addRuta(spelplan.getSkatt5().getIndexFyraI(), spelplan.getSkatt5().getIndexFyraJ(), new SkattRuta());
-                lagttill = true;
-            }
-        }
-        while (!lagttill);
-        lagttill = false;
-        do {
-            slump1 = random.nextInt(10);
-            slump2 = random.nextInt(10);
-            if (spelplan.getRuta(slump1, slump2) instanceof SkattRuta) {
-                System.out.println("kan inte lägga till fälla");
-            } else {
-                spelplan.addRuta(slump1, slump2, new FällaRuta());
-                lagttill = true;
-            }
-        } while (!lagttill);
-        lagttill = false;
-        do {
-            slump1 = random.nextInt(10);
-            slump2 = random.nextInt(10);
-            if (spelplan.getRuta(slump1, slump2) instanceof SkattRuta) {
-                System.out.println("kan inte lägga till fälla");
-            } else {
-                spelplan.addRuta(slump1, slump2, new FällaRuta());
-                lagttill = true;
-            }
-        } while (!lagttill);
-        lagttill = false;
-        do {
-            slump1 = random.nextInt(10);
-            slump2 = random.nextInt(10);
-            if (spelplan.getRuta(slump1, slump2) instanceof SkattRuta) {
-                System.out.println("kan inte lägga till fälla");
-            } else {
-                spelplan.addRuta(slump1, slump2, new FällaRuta());
-                lagttill = true;
-            }
-        } while (!lagttill);
-
-
-        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
-            for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
-                if (spelplan.getSpelplan()[i][j] == null) {
-                    spelplan.addRuta(i, j, new TomRuta());
-                }
-            }
-        }
-
-        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
-            for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
-                System.out.print(spelplan.getSpelplan()[i][j] + " ");
-            }
-            System.out.println();
-
-        }
-    }
-
-     */
 
     //metod som gör alla spelknappar disabled
     public void disableAllSpelknapp() {

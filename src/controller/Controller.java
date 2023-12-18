@@ -43,9 +43,8 @@ public class Controller {
         /*
         lägger till info i inforutan om vilken spelplan man vill starta när man klickar på nytt spel.
          */
-        infoRuta.add("Spelplan1");
-        infoRuta.add("Spelplan2");
-        infoRuta.add("Slumpad spelplan");
+        infoRuta.add("Välkommen till världens roligaste spel");
+
         updateInfoRuta();
         //test för att kolla att spelplanen har rätt storlek.
         // mainframe.getMainPanel().getLeftPanel().getButton(0,0).setEnabled(false);
@@ -122,6 +121,8 @@ public class Controller {
                 updateScore();
                 updateLiv();
                 updatePlayerTurn();
+                round =1;
+                fällaCounter =1;
                 break;
             }
             case LaddaSpel: {
@@ -704,11 +705,7 @@ public class Controller {
             System.out.println("Matchen slutade lika");
         }
 
-        infoRuta.clear();
-        infoRuta.add("Spelplan1");
-        infoRuta.add("Spelplan2");
-        infoRuta.add("Slumpad spelplan");
-        updateInfoRuta();
+
         mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(true);
     }
 

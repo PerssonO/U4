@@ -1,10 +1,10 @@
 test,675
 null,270
+Ola Är ÄNNU BÄTTRE,240
+OlaÄr bäst,153
 ola,120
 varför,102
 topscore,100
 brotatis,20
 Potatis,10
-oklartsomfan,8
-test,-47
-oklartest,-57
+Ola,300

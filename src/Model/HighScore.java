@@ -27,6 +27,6 @@ public class HighScore {
 
     @Override
     public String toString() {
-        return namn + "  " + poäng;
+        return namn + "," + poäng;
     }
 }

@@ -82,10 +82,12 @@ public class Controller {
 
 
 
-        hs.remove(9);
+       /* hs.remove(9);
         hs.add(new HighScore("BARAFUNKA", 500 ));
         hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
         System.out.println(hs.toString());
+
+        */
 
 
 
@@ -649,17 +651,17 @@ public class Controller {
         } else {
             System.out.println("Matchen slutade lika");
         }
-        String highscore = "highscore";
-        läsHighScore();
-        splitHighScore(läsHighScore());
-        /*
+
+
         if (läsHighScore().size() < 10) {
             System.out.println("Du kom med på highscorelistan");
-            String namn = JOptionPane.showInputDialog("ange namn: ") + "," + String.valueOf(player2.getScore());
+            String namn = JOptionPane.showInputDialog("ange namn: ");
+            hs.add(new HighScore(namn, player2.getScore()));
+            hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
+            writehighscore(hs);
+
 
         }
-        */
-        //splitHighScore(läsHighScore());
         infoRuta.clear();
         infoRuta.add("Spelplan1");
         infoRuta.add("Spelplan2");
@@ -933,62 +935,15 @@ public class Controller {
         }
         return highscoreArray;
     }
-
-    private static void splitHighScore(ArrayList<String> highscore) {
-        //ArrayList<String> test1 =  new ArrayList<>();
-        String[] test1 = new String[10];
-        for (int i = 0; i < highscore.size(); i++) {
-            test1[i] = highscore.get(i);
-        }
-
-        for (int i = 0; i < test1.length-1; i++) {
-            if (test1[i] != null) {
-                int min = i;
-                String[] test = test1[i].split(",");
-                String namei = test[0];
-                String scoreStringi = test[1];
-                int numberi = Integer.parseInt(scoreStringi);
-                //String minscore = namei + " " + scoreStringi;
-                // System.out.println(namei + " " + numberi);
-                for (int j = i + 1; j < test1.length; j++) {
-                    if (test1[j] != null) {
-                        String[] testj = test1[j].split(",");
-                        String namej = testj[0];
-                        String scoreStringj = testj[1];
-                        int numberj = Integer.parseInt(scoreStringj);
-                        // System.out.println(namej + " " + numberj);
-                        if (numberj > numberi) {
-                            min = j;
-                            //    minscore = namej + " " + scoreStringj;
-                        }
-                    }
-                }
-
-                String temp = test1[i];
-                test1[i] = test1[min];
-                test1[min] = temp;
-            }
-        }
-
-            //test1.add(test[0] +" "+ test[1]);
-
-
-            System.out.println("");
-            System.out.println("");
-            for (int i = 0; i < test1.length; i++) {
-                System.out.println(test1[i]);
-            }
-        }
     
 
-    public void writehighscore(ArrayList<String> test, String newhighscore) {
+    public void writehighscore(ArrayList<HighScore> test) {
         try {
             FileWriter myWriter = new FileWriter("highscore.txt");
             for (int i = 0; i < test.size(); i++) {
-                String test1 = test.get(i);
+                String test1 = test.get(i).toString();
                 myWriter.write(test1 + "\n");
             }
-            myWriter.write(newhighscore);
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {

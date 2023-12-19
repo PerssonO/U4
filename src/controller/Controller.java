@@ -27,6 +27,7 @@ public class Controller implements Serializable {
     private Spelare player2;
     private int round = 1;
     private ArrayList<String> infoRuta;
+    private ArrayList<int[]> gjordaDrag;
 
     private transient ArrayList<HighScore> hs;
 
@@ -38,6 +39,7 @@ public class Controller implements Serializable {
         this.infoRuta = new ArrayList<String>();
         disableAllSpelknapp();
         this.hs = new ArrayList<HighScore>();
+        this.gjordaDrag = new ArrayList<int[]>();
         setupHs();
        // createHighScore();// när programmet startar är alla spelknappar disabled,
         /*
@@ -125,15 +127,30 @@ public class Controller implements Serializable {
                 updateScore();
                 updateLiv();
                 updatePlayerTurn();
+                gjordaDrag.clear();
                 break;
             }
             case LaddaSpel: {
                laddaSpel();
+               updateScore();
+               updateLiv();
+               updatePlayerTurn();
+               enableAllSpelknapp();
+               disableSpeladeKnappar(gjordaDrag);
                 break;
             }
             case VisaHigh: {
+                System.out.println("");
 
-                showHighscore();
+               // showHighscore();
+                for(int i=0; i<gjordaDrag.size(); i++){
+                    for (int j =0; j < lastMove.length; j++){
+                        lastMove=gjordaDrag.get(i);
+                        System.out.print(lastMove[j]);
+                    }
+                    System.out.println("");
+                }
+                //disableSpeladeknappar(gjordaDrag);
                 break;
             }
             case SparaSpel: {
@@ -157,6 +174,7 @@ public class Controller implements Serializable {
             ss.sparadController = this;
 
             oos.writeObject(ss);
+            oos.flush();
             oos.close();
 
         }catch (Exception e){
@@ -173,7 +191,8 @@ public class Controller implements Serializable {
             SparaSpel ss =  (SparaSpel)ois.readObject();
 
             Controller sparadController = ss.sparadController;
-           // this.mainframe = sparadController.mainframe;
+            //this.mainframe = sparadController.mainframe;
+            //this.mainframe = new MainFrame(1000, 550, sparadController);
             this.round = sparadController.round;
             this.infoRuta = sparadController.infoRuta;
             this.lastMove = sparadController.lastMove;
@@ -181,6 +200,8 @@ public class Controller implements Serializable {
             this.player2 = sparadController.player2;
             this.spelplan = sparadController.spelplan;
             this.fällaCounter =sparadController.fällaCounter;
+            this.gjordaDrag = sparadController.gjordaDrag;
+            ois.close();
 
             updateLiv();
             updateScore();
@@ -595,6 +616,11 @@ public class Controller implements Serializable {
     //Metoden tar emot värdet från knappen på spelplanen och uppdaterar last move
     public void updateLastMove(int[] indexPlatser) {
         lastMove = indexPlatser;
+        for (int i = 0; i < lastMove.length; i++){
+            System.out.print(lastMove[i]);
+        }
+        System.out.println("");
+        gjordaDrag.add(lastMove);
         newRound();
 
     }
@@ -1084,4 +1110,17 @@ public class Controller implements Serializable {
     public void setFällaCounter(int fällaCounter) {
         this.fällaCounter = fällaCounter;
     }
+
+    public void disableSpeladeKnappar(ArrayList<int[]> gjordaDrag){
+
+        for(int i=0; i<gjordaDrag.size(); i++){
+            for (int j =0; j < lastMove.length; j++){
+                lastMove=gjordaDrag.get(i);
+                mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0],lastMove[1]).setEnabled(false);
+                updateFärgSpelplan();
+            }
+        }
+
+    }
+
 }

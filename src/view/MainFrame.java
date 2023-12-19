@@ -21,6 +21,7 @@ public class MainFrame extends JFrame implements Serializable {
 
 
     }
+
     public void buttonPressed(ButtonType pressedButton){
         controller.buttonPressed(pressedButton);
     }

@@ -137,6 +137,7 @@ public class Controller implements Serializable {
                updatePlayerTurn();
                enableAllSpelknapp();
                disableSpeladeKnappar(gjordaDrag);
+               mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(false);
                 break;
             }
             case VisaHigh: {

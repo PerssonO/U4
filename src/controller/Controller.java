@@ -41,23 +41,10 @@ public class Controller implements Serializable {
         this.hs = new ArrayList<HighScore>();
         this.gjordaDrag = new ArrayList<int[]>();
         setupHs();
-       // createHighScore();// när programmet startar är alla spelknappar disabled,
-        /*
-        lägger till info i inforutan om vilken spelplan man vill starta när man klickar på nytt spel.
-         */
         infoRuta.add("Välkommen till världens roligaste spel");
-
         updateInfoRuta();
-        //test för att kolla att spelplanen har rätt storlek.
-        // mainframe.getMainPanel().getLeftPanel().getButton(0,0).setEnabled(false);
-        //mainframe.getMainPanel().getLeftPanel().getButton(0,0).setBackground(Color.cyan);
-        //mainframe.getMainPanel().getLeftPanel().getButton(0,0).setForeground(Color.cyan);
-
     }
 
-
-
-      
     private void setupHs() {
 
         Scanner myReader = null;
@@ -81,19 +68,6 @@ public class Controller implements Serializable {
         myReader.close();
 
         hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
-        System.out.println(hs.toString());
-
-
-
-       /* hs.remove(9);
-        hs.add(new HighScore("BARAFUNKA", 500 ));
-        hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
-        System.out.println(hs.toString());
-
-        */
-
-
-
     }
 
     public void buttonPressed(ButtonType button) {
@@ -118,7 +92,7 @@ public class Controller implements Serializable {
 
 
                 setAllButtonsToStart();
-                enableAllSpelknapp(); //sätter alla spelknappar till enable (aka man kan trycka på dom)
+                enableAllSpelknapp();
                 player1 = new Spelare();
                 player2 = new Spelare();
                 mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(false);
@@ -141,21 +115,18 @@ public class Controller implements Serializable {
                 break;
             }
             case VisaHigh: {
-                System.out.println("");
-
                 showHighscore();
                 break;
             }
             case SparaSpel: {
+                infoRuta.clear();
+                infoRuta.add("Spelet sparades");
+                updateInfoRuta();
                 disableAllSpelknapp();
                 sparSpel();
-                //mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(true);
                 break;
             }
-
-
         }
-
     }
 
     private void sparSpel() {
@@ -183,7 +154,7 @@ public class Controller implements Serializable {
             BufferedInputStream bis = new BufferedInputStream(fis);
             ObjectInputStream ois = new ObjectInputStream(bis);
 
-            SparaSpel ss =  (SparaSpel)ois.readObject();
+            SparaSpel ss = (SparaSpel) ois.readObject();
 
             Controller sparadController = ss.sparadController;
             //this.mainframe = sparadController.mainframe;
@@ -194,7 +165,7 @@ public class Controller implements Serializable {
             this.player1 = sparadController.player1;
             this.player2 = sparadController.player2;
             this.spelplan = sparadController.spelplan;
-            this.fällaCounter =sparadController.fällaCounter;
+            this.fällaCounter = sparadController.fällaCounter;
             this.gjordaDrag = sparadController.gjordaDrag;
             ois.close();
 
@@ -203,16 +174,10 @@ public class Controller implements Serializable {
             updateInfoRuta();
             updateSkatter();
             updatePlayerTurn();
-
-
-
-
-
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-       
-        }
+    }
     
 
     private void setAllButtonsToStart() {
@@ -221,13 +186,9 @@ public class Controller implements Serializable {
                 mainframe.getMainPanel().getLeftPanel().getButton(i,j).setBackground(Color.lightGray);
                 mainframe.getMainPanel().getLeftPanel().getButton(i,j).setBorderPainted(true);
                 mainframe.getMainPanel().getLeftPanel().getButton(i,j).setOpaque(false);
-
             }
-
         }
-
     }
-
 
     /*
     Metod för att Lägga in rutor på en spelplan. Hårdkodad spelplan.
@@ -278,12 +239,14 @@ public class Controller implements Serializable {
             }
         }
 
+        /*
         for (int i = 0; i < spelplan.getSpelplan().length; i++) {
             for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
                 System.out.print(spelplan.getSpelplan()[i][j] + " ");
             }
             System.out.println();
         }
+         */
 
     }
 
@@ -336,12 +299,15 @@ public class Controller implements Serializable {
             }
         }
 
+        /*
         for (int i = 0; i < spelplan.getSpelplan().length; i++) {
             for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
                 System.out.print(spelplan.getSpelplan()[i][j] + " ");
             }
             System.out.println();
         }
+
+         */
     }
 
     /*
@@ -508,70 +474,43 @@ public class Controller implements Serializable {
             }
         }
 
+        /*
         for (int i = 0; i < spelplan.getSpelplan().length; i++) {
             for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
                 System.out.print(spelplan.getSpelplan()[i][j] + " ");
             }
             System.out.println();
-
         }
 
-
-
-
-
-
-
-
+         */
     }
 
-
-
-
-        public void testFyllgrannar(){
-            for (int i = 0; i < spelplan.getSpelplan().length; i++) {
-                for (int j = 0; j < spelplan.getSpelplan().length; j++) {
-                    if (spelplan.getRuta(i,j) instanceof SkattRuta){
-                        try {
-                            if ((i-1 > -1) && spelplan.getRuta(i-1,j) == null){
-                                spelplan.addRuta(i-1,j, new TomRuta());
-                            }
-                            if ((i+1 < 10) && spelplan.getRuta(i+1,j) == null){
-                                spelplan.addRuta(i+1,j, new TomRuta());
-                            }
-                            if ((j+1 < 10) && spelplan.getRuta(i,j+1) == null){
-                                spelplan.addRuta(i,j+1, new TomRuta());
-                            }
-                            if ((j-1 > -1) && spelplan.getRuta(i,j-1) == null){
-                                spelplan.addRuta(i,j-1, new TomRuta());
-                            }
-
+    public void testFyllgrannar() {
+        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
+            for (int j = 0; j < spelplan.getSpelplan().length; j++) {
+                if (spelplan.getRuta(i, j) instanceof SkattRuta) {
+                    try {
+                        if ((i - 1 > -1) && spelplan.getRuta(i - 1, j) == null) {
+                            spelplan.addRuta(i - 1, j, new TomRuta());
                         }
-                        catch (Exception e) {
-                            System.out.println("FEL");
-                            //e.printStackTrace();
-
+                        if ((i + 1 < 10) && spelplan.getRuta(i + 1, j) == null) {
+                            spelplan.addRuta(i + 1, j, new TomRuta());
+                        }
+                        if ((j + 1 < 10) && spelplan.getRuta(i, j + 1) == null) {
+                            spelplan.addRuta(i, j + 1, new TomRuta());
+                        }
+                        if ((j - 1 > -1) && spelplan.getRuta(i, j - 1) == null) {
+                            spelplan.addRuta(i, j - 1, new TomRuta());
                         }
 
-
+                    } catch (Exception e) {
+                        System.out.println("FEL");
+                        //e.printStackTrace();
                     }
-
-
                 }
-
             }
-
-
-
         }
-
-
-
-
-
-
-
-
+    }
 
     //metod som gör alla spelknappar disabled
     public void disableAllSpelknapp() {
@@ -581,7 +520,6 @@ public class Controller implements Serializable {
             }
         }
     }
-
 
     /*
     kollar så att man inte försöker lägga in en skatt på en ruta som redan är en skattruta.
@@ -596,7 +534,6 @@ public class Controller implements Serializable {
             return true;
         }
     }
-    
 
     //metod som gör alla spelknappar enabled
     public void enableAllSpelknapp() {
@@ -611,10 +548,6 @@ public class Controller implements Serializable {
     //Metoden tar emot värdet från knappen på spelplanen och uppdaterar last move
     public void updateLastMove(int[] indexPlatser) {
         lastMove = indexPlatser;
-        for (int i = 0; i < lastMove.length; i++){
-            System.out.print(lastMove[i]);
-        }
-        System.out.println("");
         gjordaDrag.add(lastMove);
         newRound();
 
@@ -622,8 +555,6 @@ public class Controller implements Serializable {
 
     //Metoden som körs efter någon har tryckt på en spelknapp och lastmove har uppdaterats
     private void newRound() {
-        //System.out.println(lastMove[0]);
-        //System.out.println(lastMove[1]);
         infoRuta.clear();
         disableButton();
         updateFärgSpelplan();
@@ -666,8 +597,6 @@ public class Controller implements Serializable {
             mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 2");
         } else {
             mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 1");
-
-
         }
     }
 
@@ -759,31 +688,26 @@ public class Controller implements Serializable {
     //Kollar om alla rutor i en skatt är hittade så att poäng kan delas ut
     private void checkIfLastSkattruta() {
         if (spelplan.getSkatt1().isB1() && spelplan.getSkatt1().isB2() && spelplan.getSkatt1().isB3() && spelplan.getSkatt1().isB4()) {
-            System.out.println("1. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt1().setB1(false);
             spelplan.getSkatt1().setAllaHittade(true);
             gePoäng(1);
         }
         if (spelplan.getSkatt2().isB1() && spelplan.getSkatt2().isB2() && spelplan.getSkatt2().isB3() && spelplan.getSkatt2().isB4()) {
-            System.out.println("2. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt2().setB1(false);
             spelplan.getSkatt2().setAllaHittade(true);
             gePoäng(2);
         }
         if (spelplan.getSkatt3().isB1() && spelplan.getSkatt3().isB2() && spelplan.getSkatt3().isB3() && spelplan.getSkatt3().isB4()) {
-            System.out.println("3. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt3().setB1(false);
             spelplan.getSkatt3().setAllaHittade(true);
             gePoäng(3);
         }
         if (spelplan.getSkatt4().isB1() && spelplan.getSkatt4().isB2() && spelplan.getSkatt4().isB3() && spelplan.getSkatt4().isB4()) {
-            System.out.println("4. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt4().setB1(false);
             spelplan.getSkatt4().setAllaHittade(true);
             gePoäng(4);
         }
         if (spelplan.getSkatt5().isB1() && spelplan.getSkatt5().isB2() && spelplan.getSkatt5().isB3() && spelplan.getSkatt5().isB4()) {
-            System.out.println("5. Du hittade en skatt Lägg en metod här för att dela ut poäng");
             spelplan.getSkatt5().setB1(false);
             spelplan.getSkatt5().setAllaHittade(true);
             gePoäng(5);
@@ -825,11 +749,9 @@ public class Controller implements Serializable {
 
     }
 
-
     //Metoden kollar om platsen är en fälla
     private void checkIfFälla() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {
-            System.out.println("Du gick i en fälla Kör en metod som gör något roligt");
             gickIFälla();
         }
     }

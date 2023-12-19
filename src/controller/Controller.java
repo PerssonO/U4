@@ -74,7 +74,6 @@ public class Controller implements Serializable {
 
         switch (button) {
             case NyttSpel: {
-                System.out.println("KNAPP NyttSpel");
             /*
             man väljer vilken spelplan man vill starta från inforutan sen klickar man på nyttspel.
              */
@@ -636,7 +635,6 @@ public class Controller implements Serializable {
     private void gameOver() {
         disableAllSpelknapp();
         if (player1.getLiv() == 0) {
-            System.out.println("Spelare 2 vann matchen");
             JOptionPane.showMessageDialog(null, "Spelare2 vann matchen med " + player2.getScore() + " men poäng");
             if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
                 deleteAndWriteHighscore(player2);
@@ -645,7 +643,6 @@ public class Controller implements Serializable {
                 writeToHighscoreIfLessThan10(player2);
             }
         } else if (player2.getLiv() == 0) {
-            System.out.println("Spelare 1 vann matchen");
             JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
             if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
                 deleteAndWriteHighscore(player2);
@@ -655,7 +652,6 @@ public class Controller implements Serializable {
                 writeToHighscoreIfLessThan10(player2);
             }
         } else if (player1.getScore() > player2.getScore()) {
-            System.out.println("Spelare1 vann matchen");
             JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
             if (hs.size() == 10 && hs.get(9).getPoäng() < player1.getScore()){
                 deleteAndWriteHighscore(player1);
@@ -664,7 +660,6 @@ public class Controller implements Serializable {
                 writeToHighscoreIfLessThan10(player1);
             }
         } else if (player2.getScore() > player1.getScore()) {
-            System.out.println("Spelare2 vann matchen");
             JOptionPane.showMessageDialog(null, "Spelare2 vann matchen med " + player2.getScore() + " men poäng");
             if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
                 deleteAndWriteHighscore(player2);
@@ -673,7 +668,8 @@ public class Controller implements Serializable {
                 writeToHighscoreIfLessThan10(player2);
             }
         } else {
-            System.out.println("Matchen slutade lika");
+            JOptionPane.showMessageDialog(null, "Matchen slutade lika");
+
         }
 
 

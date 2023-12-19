@@ -1,6 +1,8 @@
 package Model;
 
-public class Skatt {
+import java.io.Serializable;
+
+public class Skatt implements Serializable {
     private int poäng;
     private int indexEttI;
     private int indexEttJ;

@@ -2,9 +2,11 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
+
 import controller.*;
 
-public class RightPanel extends JPanel {
+public class RightPanel extends JPanel implements Serializable {
     private MainFrame mainframe;
     private int with;
     private int height;

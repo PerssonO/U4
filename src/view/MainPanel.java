@@ -2,8 +2,9 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements Serializable {
     private LeftPanel leftPanel;
     private RightPanel rightPanel;
 

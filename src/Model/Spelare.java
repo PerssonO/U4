@@ -1,10 +1,12 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Klass som innehåller information om spelare.
  */
 
-public class Spelare {
+public class Spelare implements Serializable {
 
     private int score;
     private int liv = 2;

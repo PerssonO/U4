@@ -1,6 +1,8 @@
 package view;
 
-public enum ButtonType {
+import java.io.Serializable;
+
+public enum ButtonType implements Serializable {
     NyttSpel,
     LaddaSpel,
     SparaSpel,

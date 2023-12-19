@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * En klass av spelplan som består av en 2-dim array av rutor.
  */
-public class Spelplan {
+public class Spelplan implements Serializable {
 
     private Ruta[][] spelplan;
     private Skatt skatt1;

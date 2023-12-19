@@ -3,8 +3,9 @@ package view;
 import controller.Controller;
 
 import javax.swing.*;
+import java.io.Serializable;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Serializable {
     private MainPanel mainPanel;
     private Controller controller;
 

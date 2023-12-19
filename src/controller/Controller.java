@@ -2,6 +2,7 @@ package controller;
 
 
 import view.*;
+import java.io.Serializable;
 
 
 import Model.*;
@@ -9,16 +10,15 @@ import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.*;
 
 
-public class Controller {
+
+
+public class Controller implements Serializable {
     private MainFrame mainframe;
     private Spelplan spelplan;
 
@@ -27,8 +27,8 @@ public class Controller {
     private Spelare player2;
     private int round = 1;
     private ArrayList<String> infoRuta;
-    private ArrayList<String> highscoreArray;
-    ArrayList<HighScore> hs;
+
+    private transient ArrayList<HighScore> hs;
 
     int fällaCounter = 1;
 
@@ -53,6 +53,9 @@ public class Controller {
 
     }
 
+
+
+      
     private void setupHs() {
 
         Scanner myReader = null;
@@ -71,8 +74,7 @@ public class Controller {
 
             }
         } catch (Exception e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+           System.out.println(e.getMessage());
         }
         myReader.close();
 
@@ -126,21 +128,16 @@ public class Controller {
                 break;
             }
             case LaddaSpel: {
-                System.out.println("KNAPP LassaSpel");
-                for (int i = 0; i < 1001; i++){
-                NySlumpad();
-                System.out.println("Spelplan  " + i);
-
-                }
+               laddaSpel();
                 break;
             }
             case VisaHigh: {
-                System.out.println("KNAPP VISA HS");
+
                 showHighscore();
                 break;
             }
             case SparaSpel: {
-                System.out.println("KNAPP SPARA SPEL");
+                sparSpel();
                 break;
             }
 
@@ -148,6 +145,59 @@ public class Controller {
         }
 
     }
+
+    private void sparSpel() {
+        try {
+            FileOutputStream fos = new FileOutputStream("test.dat");
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+
+            SparaSpel ss = new SparaSpel();
+
+            ss.sparadController = this;
+
+            oos.writeObject(ss);
+            oos.close();
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void laddaSpel() {
+        try {
+            FileInputStream fis = new FileInputStream("test.dat");
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            ObjectInputStream ois = new ObjectInputStream(bis);
+
+            SparaSpel ss =  (SparaSpel)ois.readObject();
+
+            Controller sparadController = ss.sparadController;
+           // this.mainframe = sparadController.mainframe;
+            this.round = sparadController.round;
+            this.infoRuta = sparadController.infoRuta;
+            this.lastMove = sparadController.lastMove;
+            this.player1 = sparadController.player1;
+            this.player2 = sparadController.player2;
+            this.spelplan = sparadController.spelplan;
+            this.fällaCounter =sparadController.fällaCounter;
+
+            updateLiv();
+            updateScore();
+            updateInfoRuta();
+            updateSkatter();
+            updatePlayerTurn();
+
+
+
+
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+       
+        }
+    
 
     private void setAllButtonsToStart() {
         for (int i = 0; i <10; i++){
@@ -969,5 +1019,69 @@ public class Controller {
     private void showHighscore() {
         hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
         mainframe.getMainPanel().getRightPanel().getInfoFönster().setListData(hs.toArray());
+    }
+
+    public MainFrame getMainframe() {
+        return mainframe;
+    }
+
+    public void setMainframe(MainFrame mainframe) {
+        this.mainframe = mainframe;
+    }
+
+    public Spelplan getSpelplan() {
+        return spelplan;
+    }
+
+    public void setSpelplan(Spelplan spelplan) {
+        this.spelplan = spelplan;
+    }
+
+    public int[] getLastMove() {
+        return lastMove;
+    }
+
+    public void setLastMove(int[] lastMove) {
+        this.lastMove = lastMove;
+    }
+
+    public Spelare getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(Spelare player1) {
+        this.player1 = player1;
+    }
+
+    public Spelare getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(Spelare player2) {
+        this.player2 = player2;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public ArrayList<String> getInfoRuta() {
+        return infoRuta;
+    }
+
+    public void setInfoRuta(ArrayList<String> infoRuta) {
+        this.infoRuta = infoRuta;
+    }
+
+    public int getFällaCounter() {
+        return fällaCounter;
+    }
+
+    public void setFällaCounter(int fällaCounter) {
+        this.fällaCounter = fällaCounter;
     }
 }

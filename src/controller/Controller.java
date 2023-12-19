@@ -142,19 +142,13 @@ public class Controller implements Serializable {
             case VisaHigh: {
                 System.out.println("");
 
-               // showHighscore();
-                for(int i=0; i<gjordaDrag.size(); i++){
-                    for (int j =0; j < lastMove.length; j++){
-                        lastMove=gjordaDrag.get(i);
-                        System.out.print(lastMove[j]);
-                    }
-                    System.out.println("");
-                }
-                //disableSpeladeknappar(gjordaDrag);
+                showHighscore();
                 break;
             }
             case SparaSpel: {
+                disableAllSpelknapp();
                 sparSpel();
+                //mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(true);
                 break;
             }
 

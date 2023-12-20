@@ -1,10 +1,2 @@
 test,675
-vvvvvvv,380
-kkk,380
-hmm,320
-Ola,300
-kkk,300
-null,270
-Ola Är ÄNNU BÄTTRE,240
-ok,240
-okokok,220
+

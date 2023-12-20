@@ -646,7 +646,6 @@ public class Controller implements Serializable {
             JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
             if (hs.size() == 10 && hs.get(9).getPoäng() < player2.getScore()){
                 deleteAndWriteHighscore(player2);
-                System.out.println("nej");
             }
             else {
                 writeToHighscoreIfLessThan10(player2);

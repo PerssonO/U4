@@ -549,7 +549,7 @@ public class Controller implements Serializable {
 
     /**
      * Metod som gör alla spelknappar enabled
-     * @author Jonatan Tempek
+     * @author Jonatan Tempel
      */
     public void enableAllSpelknapp() {
         for (int i = 0; i <= 9; i++) {

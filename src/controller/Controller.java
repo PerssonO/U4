@@ -15,6 +15,10 @@ import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.*;
 
+/**
+ * Controller klass som sköter logiken i spelet.
+ * @author Ola Persson , Jonatan Tempel
+ */
 
 
 
@@ -189,8 +193,9 @@ public class Controller implements Serializable {
         }
     }
 
-    /*
-    Metod för att Lägga in rutor på en spelplan. Hårdkodad spelplan.
+    /**
+     * Metod som används för att skapa spelplan1 vilket är en hårdkodad spelplan
+     * @author Jonatan Tempel , Ola Persson
      */
     public void setUpSpelplan1() {
         this.spelplan = new Spelplan();
@@ -249,8 +254,9 @@ public class Controller implements Serializable {
 
     }
 
-    /*
-    En spelplan till.
+    /**
+     * Metod som används för att skapa spelplan2 vilket är en hårdkodad spelplan
+     * @author Jonatan Tempel , Ola Persson
      */
     public void setUpSpelplan2() {
         this.spelplan = new Spelplan();
@@ -309,8 +315,9 @@ public class Controller implements Serializable {
          */
     }
 
-    /*
-    Metod för att slumpa spelplant. När man lägger till skatt nr5 bråkar den ibland.
+    /**
+     * Metod som används för att slumpa fram en spelplan
+     * @author Ola Persson , Jonatan Tempel
      */
     public void NySlumpad() {
         this.spelplan = new Spelplan();
@@ -511,7 +518,10 @@ public class Controller implements Serializable {
         }
     }
 
-    //metod som gör alla spelknappar disabled
+    /**
+     * Metod som gör att alla spelknappar blir disabled.
+     * @author Jonatan Tempel
+     */
     public void disableAllSpelknapp() {
         for (int i = 0; i <= 9; i++) {
             for (int j = 0; j <= 9; j++) {
@@ -520,8 +530,11 @@ public class Controller implements Serializable {
         }
     }
 
-    /*
-    kollar så att man inte försöker lägga in en skatt på en ruta som redan är en skattruta.
+    /**
+     * Metod som används för att kolla om det ligger en skatt på en ruta
+     * @param skatt man anger den skatten man vill kontrollera
+     * @return boolean som antingen är true eller false beroende på om det finns en skatt eller inte på rutan
+     * @author Jonatan Tempel
      */
     public boolean checkRutaförSkatt(Skatt skatt) {
         if (spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
@@ -534,7 +547,10 @@ public class Controller implements Serializable {
         }
     }
 
-    //metod som gör alla spelknappar enabled
+    /**
+     * Metod som gör alla spelknappar enabled
+     * @author Jonatan Tempek
+     */
     public void enableAllSpelknapp() {
         for (int i = 0; i <= 9; i++) {
             for (int j = 0; j <= 9; j++) {
@@ -632,6 +648,11 @@ public class Controller implements Serializable {
 
     }
 
+    /**
+     * Metod som används när spelet är slut. Används för att få reda på vilken spelare som vann matchen och om deras poäng är tillräckligt
+     * hög för att skrivas in på highscore listan
+     * @author Jonatan Tempel , Ola Persson
+     */
     private void gameOver() {
         disableAllSpelknapp();
         if (player1.getLiv() == 0) {
@@ -890,8 +911,10 @@ public class Controller implements Serializable {
 
     }
 
-    /*
-    metod som används för att välja vilken spelplan man vill använda.
+    /**
+     * Metod som används för att skapa en spelplan beroende på vilket val användaren gör.
+     * @param selectionindex int som användaren väljer för att skapa ett nytt spel
+     * @author Jonatan Tempel
      */
     public void setupspelplan(int selectionindex) {
         switch (selectionindex) {
@@ -907,6 +930,10 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Metod som skapar en textfil med namnet HighScore.
+     * @author Jonatan Tempel
+     */
     public static void createHighScore() {
         try {
             File highscore = new File("HighScore.txt");
@@ -921,11 +948,16 @@ public class Controller implements Serializable {
         }
     }
 
-    public void writehighscore(ArrayList<HighScore> test) {
+    /**
+     * Metod som används för att skriva en värdena som finns i en arraylist till highscore.txt filen
+     * @param hs arraylist med värden som ska skrivas in i highscore textfilen
+     * @author Jonatan Tempel
+     */
+    public void writehighscore(ArrayList<HighScore> hs) {
         try {
             FileWriter myWriter = new FileWriter("highscore.txt");
-            for (int i = 0; i < test.size(); i++) {
-                String test1 = test.get(i).toString();
+            for (int i = 0; i < hs.size(); i++) {
+                String test1 = hs.get(i).toString();
                 myWriter.write(test1 + "\n");
             }
             myWriter.close();
@@ -937,6 +969,11 @@ public class Controller implements Serializable {
 
     }
 
+    /**
+     * Metod som tar bort den lägsta poängen från highscore arrayListan och lägger till den spelaren som finns i parametern
+     * @param spelare vilken spelare som ska skrivas in på highscore listan
+     * @author Jonatan Tempel
+     */
     public void deleteAndWriteHighscore(Spelare spelare) {
         hs.remove(9);
         String namn = JOptionPane.showInputDialog("ange namn: ");
@@ -948,6 +985,11 @@ public class Controller implements Serializable {
         writehighscore(hs);
     }
 
+    /**
+     * Metod som kollar om highscore arraylistan är mindre än 10 och skriver in den aktuella spelaren på highscorelistan
+     * @param spelare den aktuella spelaren
+     * @author Jonatan Tempel
+     */
     public void writeToHighscoreIfLessThan10(Spelare spelare) {
         if (hs.size() < 10) {
             System.out.println("Du kom med på highscorelistan");
@@ -960,6 +1002,10 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Metod som visar highscorelistan i GUI
+     * @author Jonatan Tempel
+     */
     private void showHighscore() {
         hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
         mainframe.getMainPanel().getRightPanel().getInfoFönster().setListData(hs.toArray());
@@ -1029,6 +1075,11 @@ public class Controller implements Serializable {
         this.fällaCounter = fällaCounter;
     }
 
+    /**
+     * Metod som används för att göra de spelknappar som har används blir disabled när man laddar ett spel
+     * @param gjordaDrag arraylista som innehåller de rutor som man grävt på under spelets gång
+     * @author Jonatan Tempel
+     */
     public void disableSpeladeKnappar(ArrayList<int[]> gjordaDrag){
 
         for(int i=0; i<gjordaDrag.size(); i++){

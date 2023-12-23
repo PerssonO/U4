@@ -666,10 +666,10 @@ public class Controller implements Serializable {
         } else if (player2.getLiv() == 0) {
             JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");
             if (hs.size() == 10 && hs.get(9).getPoäng() < player1.getScore()){
-                deleteAndWriteHighscore(player2);
+                deleteAndWriteHighscore(player1);
             }
             else {
-                writeToHighscoreIfLessThan10(player2);
+                writeToHighscoreIfLessThan10(player1);
             }
         } else if (player1.getScore() > player2.getScore()) {
             JOptionPane.showMessageDialog(null, "Spelare1 vann matchen med " + player1.getScore() + " men poäng");

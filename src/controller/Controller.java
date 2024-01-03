@@ -976,7 +976,7 @@ public class Controller implements Serializable {
      */
     public void deleteAndWriteHighscore(Spelare spelare) {
         hs.remove(9);
-        String namn = JOptionPane.showInputDialog("ange namn: ");
+        String namn = JOptionPane.showInputDialog("Du kom med på highscorelistan. \nAnge namn: ");
         if (namn == null){
             namn = "Anonym";
         }
@@ -992,8 +992,7 @@ public class Controller implements Serializable {
      */
     public void writeToHighscoreIfLessThan10(Spelare spelare) {
         if (hs.size() < 10) {
-            System.out.println("Du kom med på highscorelistan");
-            String namn = JOptionPane.showInputDialog("ange namn: ");
+            String namn = JOptionPane.showInputDialog("Du kom med på highscorelistan. \nAnge namn: ");
             if (namn == null){
                 namn = "Anonym";
             }

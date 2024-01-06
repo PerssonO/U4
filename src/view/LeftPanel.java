@@ -3,12 +3,12 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 public class LeftPanel extends JPanel implements Serializable {
-    private MainFrame mainframe;
-    private int with;
-    private int height;
+    private final MainFrame mainframe;
+    private final int with;
+    private final int height;
     private JButton knapp;
     private JButton[][] array;
 
@@ -36,7 +36,7 @@ public class LeftPanel extends JPanel implements Serializable {
     private void setup() {
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 10; j++) {
-                array[i][j] = new JButton(String.valueOf(i) + String.valueOf(j));
+                array[i][j] = new JButton(String.valueOf(i) + j);
                 array[i][j].setEnabled(true);
                 array[i][j].setBackground(Color.lightGray);
                 array[i][j].setFont(new Font(array[i][j].getFont().getName(), Font.PLAIN, 0));

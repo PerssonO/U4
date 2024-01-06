@@ -1,12 +1,16 @@
 package controller;
-import view.*;
-import java.io.Serializable;
+
 import Model.*;
+import view.ButtonType;
+import view.MainFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  * Controller klass som sköter logiken i spelet.
@@ -16,7 +20,7 @@ import java.util.*;
 
 
 public class Controller implements Serializable {
-    private MainFrame mainframe;
+    private final MainFrame mainframe;
     private Spelplan spelplan;
 
     private int[] lastMove;
@@ -26,7 +30,7 @@ public class Controller implements Serializable {
     private ArrayList<String> infoRuta;
     private ArrayList<int[]> gjordaDrag;
 
-    private transient ArrayList<HighScore> hs;
+    private final transient ArrayList<HighScore> hs;
 
     int fällaCounter = 1;
 
@@ -69,7 +73,7 @@ public class Controller implements Serializable {
 
             }
         } catch (Exception e) {
-           System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         myReader.close();
 
@@ -115,13 +119,13 @@ public class Controller implements Serializable {
                 break;
             }
             case LaddaSpel: {
-               laddaSpel();
-               updateScore();
-               updateLiv();
-               updatePlayerTurn();
-               enableAllSpelknapp();
-               disableSpeladeKnappar(gjordaDrag);
-               mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(false);
+                laddaSpel();
+                updateScore();
+                updateLiv();
+                updatePlayerTurn();
+                enableAllSpelknapp();
+                disableSpeladeKnappar(gjordaDrag);
+                mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(false);
                 break;
             }
             case VisaHigh: {
@@ -537,14 +541,10 @@ public class Controller implements Serializable {
      * @author Jonatan Tempel
      */
     public boolean checkRutaförSkatt(Skatt skatt) {
-        if (spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta
-                || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta
-                || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta
-                || spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(spelplan.getRuta(spelplan.getSkatt(skatt).getIndexEttI(), spelplan.getSkatt(skatt).getIndexEttJ()) instanceof SkattRuta)
+                && !(spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTvåI(), spelplan.getSkatt(skatt).getIndexTvåJ()) instanceof SkattRuta)
+                && !(spelplan.getRuta(spelplan.getSkatt(skatt).getIndexTreI(), spelplan.getSkatt(skatt).getIndexTreJ()) instanceof SkattRuta)
+                && !(spelplan.getRuta(spelplan.getSkatt(skatt).getIndexFyraI(), spelplan.getSkatt(skatt).getIndexFyraJ()) instanceof SkattRuta);
     }
 
     /**
@@ -803,7 +803,7 @@ public class Controller implements Serializable {
      * Metoden kollar om platsen är en fälla
      * @author Ola Persson
      */
-        private void checkIfFälla() {
+    private void checkIfFälla() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {
             gickIFälla();
         }
@@ -926,7 +926,7 @@ public class Controller implements Serializable {
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.black);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);
-           //mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
+            //mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.black);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);
@@ -937,7 +937,7 @@ public class Controller implements Serializable {
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.yellow);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);
-           // mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
+            // mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.yellow);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);
@@ -948,7 +948,7 @@ public class Controller implements Serializable {
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.red);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);
-           // mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
+            // mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(false);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setForeground(Color.red);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setOpaque(true);
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBorderPainted(true);

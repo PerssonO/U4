@@ -161,6 +161,14 @@ public class Spelplan implements Serializable {
     public Skatt getSkatt(Skatt skatt){
         return skatt;
     }
+
+    /**
+     * Metoden retunerar en ruta på en utvald plats i Spelplans Arrayn
+     * @param i indexplats
+     * @param j indexplats
+     * @return retunerar en ruta.
+     * @author Ola Persson
+     */
    public Ruta getTypeOfRuta (int i, int j){
         return spelplan[i][j];
 

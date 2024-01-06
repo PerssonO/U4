@@ -285,10 +285,20 @@ public class Skatt implements Serializable {
         this.b4 = b4;
     }
 
+    /**
+     * Metoden berättar om alla rutor i en skatt är hittade
+     * @return boolean som säger om att skattrutor i en skatt är hittade
+     * @author Ola Persson
+     */
     public boolean isAllaHittade() {
         return allaHittade;
     }
 
+    /**
+     * Sätter värdet i ett skatt objekt om alla skattrutor är hittade
+     * @param allaHittade booolean
+     * @author Ola Persson
+     */
     public void setAllaHittade(boolean allaHittade) {
         this.allaHittade = allaHittade;
     }

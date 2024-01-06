@@ -1,17 +1,10 @@
 package controller;
-
-
 import view.*;
 import java.io.Serializable;
-
-
 import Model.*;
-import view.MainFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.*;
 
@@ -37,6 +30,10 @@ public class Controller implements Serializable {
 
     int fällaCounter = 1;
 
+    /**
+     * Konstruktor för controllern. Körs från main när programet startas
+     * @author Ola Persson Jonatan Tempel
+     */
     public Controller() {
         this.mainframe = new MainFrame(1000, 550, this);
         this.lastMove = new int[2];
@@ -49,6 +46,11 @@ public class Controller implements Serializable {
         updateInfoRuta();
     }
 
+    /**
+     * Metoden körs när spelet startas. Den läser in highscore listan från en txt fil och lägger till
+     * värden i hs. Sen sorteras hs.
+     * @author Ola Persson Jonatan Tempel
+     */
     private void setupHs() {
 
         Scanner myReader = null;
@@ -74,6 +76,11 @@ public class Controller implements Serializable {
         hs.sort(Comparator.comparingInt(HighScore::getPoäng).reversed());
     }
 
+    /**
+     * Metoden tar in ett tryck från knapparna i programet
+     * @param button vilken knapp trycks
+     * @author Ola Persson Jonatan Tempel
+     */
     public void buttonPressed(ButtonType button) {
 
         switch (button) {
@@ -132,6 +139,10 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Metoden sparar spelet ner till filen test.dat
+     * @author Ola Persson Jonatan Tempel
+     */
     private void sparSpel() {
         try {
             FileOutputStream fos = new FileOutputStream("test.dat");
@@ -151,6 +162,10 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Metoden laddar in det sparade spelet. Från test.dat.
+     * @author Ola Persson Jonatan Tempel
+     */
     private void laddaSpel() {
         try {
             FileInputStream fis = new FileInputStream("test.dat");
@@ -181,8 +196,11 @@ public class Controller implements Serializable {
             System.out.println(e.getMessage());
         }
     }
-    
 
+    /**
+     * Metoden sätter all spelrutor till startvärdena vid start av nytt spel
+     * @author Ola Persson Jonatan Tempel
+     */
     private void setAllButtonsToStart() {
         for (int i = 0; i <10; i++){
             for (int j = 0; j < 10; j++){
@@ -243,14 +261,7 @@ public class Controller implements Serializable {
             }
         }
 
-        /*
-        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
-            for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
-                System.out.print(spelplan.getSpelplan()[i][j] + " ");
-            }
-            System.out.println();
-        }
-         */
+
 
     }
 
@@ -304,15 +315,7 @@ public class Controller implements Serializable {
             }
         }
 
-        /*
-        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
-            for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
-                System.out.print(spelplan.getSpelplan()[i][j] + " ");
-            }
-            System.out.println();
-        }
 
-         */
     }
 
     /**
@@ -480,17 +483,14 @@ public class Controller implements Serializable {
             }
         }
 
-        /*
-        for (int i = 0; i < spelplan.getSpelplan().length; i++) {
-            for (int j = 0; j < spelplan.getSpelplan()[i].length; j++) {
-                System.out.print(spelplan.getSpelplan()[i][j] + " ");
-            }
-            System.out.println();
-        }
 
-         */
     }
 
+    /**
+     * Metoden används i metoden som slumpar fram en spelplan. Metoden fyller platserna runt en skatt
+     * så att ny skatter inte kan placeras direkt brevid en skatt.
+     * @author Ola Persson Jonatgan Tempel
+     * */
     public void testFyllgrannar() {
         for (int i = 0; i < spelplan.getSpelplan().length; i++) {
             for (int j = 0; j < spelplan.getSpelplan().length; j++) {
@@ -561,6 +561,13 @@ public class Controller implements Serializable {
     }
 
     //Metoden tar emot värdet från knappen på spelplanen och uppdaterar last move
+
+    /**
+     * Metoden tar in en int array med två värden vilket är indexplatserna på den spelknapp
+     * spelaren tryckt på. Sen uppdaterar den lastMove samt lägger in det i gjorda drag
+     * @param indexPlatser int[] med indexplatserna för senaste gjorda drag
+     * @author Ola Persson Jonatan Tempel
+     */
     public void updateLastMove(int[] indexPlatser) {
         lastMove = indexPlatser;
         gjordaDrag.add(lastMove);
@@ -568,7 +575,13 @@ public class Controller implements Serializable {
 
     }
 
-    //Metoden som körs efter någon har tryckt på en spelknapp och lastmove har uppdaterats
+    /**
+     * Metoden som körs efter någon har tryckt på en spelknapp och lastmove har uppdaterats
+     * Samlar ihop alla metoder som måste köras efter ett tryck på spelknapp.
+     * @Author Ola Persson Jonatan Tempel
+     *
+     */
+
     private void newRound() {
         infoRuta.clear();
         disableButton();
@@ -587,6 +600,11 @@ public class Controller implements Serializable {
 
     }
 
+    /**
+     * Metoden körs efter varje runda och kontrolerar om någon spelare
+     * har förlorat alla liv. Om det skett körs metoden game over
+     * @author Ola Persson
+     */
     private void checkIfDead() {
         if (player1.getLiv() == 0) {
             infoRuta.add("Spelare 1 förlorade sitt sista liv och har förlorat");
@@ -598,15 +616,25 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Metoden uppdaterar panelen som visar antalet liv för varje spelare
+     * @author Ola Persson
+     */
     private void updateLiv() {
         mainframe.getMainPanel().getRightPanel().getPlayerLiv1().setText("Spelare 1 liv: " + player1.getLiv());
         mainframe.getMainPanel().getRightPanel().getPlayerLiv2().setText("Spelare 2 liv: " + player2.getLiv());
     }
-
+    /**
+     * Metoden uppdaterar panelen som visar inforutan
+     * @author Ola Persson
+     */
     private void updateInfoRuta() {
         mainframe.getMainPanel().getRightPanel().getInfoFönster().setListData(infoRuta.toArray());
     }
-
+    /**
+     * Metoden uppdaterar rutan som visar vilken spelares tur det är
+     * @author Ola Persson
+     */
     private void updatePlayerTurn() {
         if (round % 2 == 0) {
             mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 2");
@@ -614,27 +642,21 @@ public class Controller implements Serializable {
             mainframe.getMainPanel().getRightPanel().getCurrentPlayer().setText("Tur att trycka: Spelare 1");
         }
     }
-
+    /**
+     * Metoden uppdaterar rutan som visar spelarnas poäng
+     * @author Ola Persson
+     */
     private void updateScore() {
         mainframe.getMainPanel().getRightPanel().getPlayer1().setText("Spelare 1 poäng: " + player1.getScore());
         mainframe.getMainPanel().getRightPanel().getPlayer2().setText("Spelare 2 poäng: " + player2.getScore());
     }
 
-    private void printPlayerTurn() {
-        System.out.println("-----------------------------------");
-        if (round % 2 == 0) {
-            System.out.println("Spelare 2 tur");
-        } else {
-            System.out.println("Spelare 1 tur");
-        }
-    }
 
-    private void printScore() {
-        System.out.println("Player 1 " + player1.getScore());
-        System.out.println("Player 2 " + player2.getScore());
-    }
 
-    //Kollar om alla skatter är hittade och spelet är slut
+    /**
+     * Metoden kontrolerar om alla skattrutor är hittade och i så fall avslutas spelet
+     * @author Ola Persson
+     */
     private void checkIfAllaSkatterHittade() {
         if (spelplan.getSkatt1().isAllaHittade() &&
                 spelplan.getSkatt2().isAllaHittade() &&
@@ -696,12 +718,20 @@ public class Controller implements Serializable {
         mainframe.getMainPanel().getRightPanel().getBtnNyttSpel().setEnabled(true);
     }
 
-    //Stänger av en knapp. Används så man inte kan trycka på samma spelknapp två gånger
+    /**
+     * Metoden disablar den spelruta som tryckts på så att det inte går att trycka på samma ruta två
+     * gånger i samma spel
+     * @author Ola Persson
+     */
     private void disableButton() {
         mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setEnabled(false);
     }
-
-    //Kollar om alla rutor i en skatt är hittade så att poäng kan delas ut
+    /**
+     * Kollar om alla rutor i en skatt är hittade så att poäng kan delas ut
+     * kan det delas ut körs metoden gePoäng
+     * @author Ola Persson
+     */
+    //
     private void checkIfLastSkattruta() {
         if (spelplan.getSkatt1().isB1() && spelplan.getSkatt1().isB2() && spelplan.getSkatt1().isB3() && spelplan.getSkatt1().isB4()) {
             spelplan.getSkatt1().setB1(false);
@@ -731,8 +761,12 @@ public class Controller implements Serializable {
 
 
     }
+    /**
+     * Metoden delar ut poängen och uppdaterar infoRuta med vilken poäng man fick
+     *
+     * @author Ola Persson
+     */
 
-    //Metoden delar ut poängen och uppdaterar infoRuta med vilken poäng man fick
     private void gePoäng(int i) {
         int poäng = 0;
         if (i == 1) {
@@ -765,13 +799,20 @@ public class Controller implements Serializable {
 
     }
 
-    //Metoden kollar om platsen är en fälla
-    private void checkIfFälla() {
+    /**
+     * Metoden kollar om platsen är en fälla
+     * @author Ola Persson
+     */
+        private void checkIfFälla() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof FällaRuta) {
             gickIFälla();
         }
     }
-
+    /**
+     * Metoden körs om en splare gått i fälla. Ojämna fällor ger minus liv och jämna minus
+     * en slumpad poäng
+     * @author Ola Persson
+     */
     private void gickIFälla() {
         if (fällaCounter % 2 != 0) {
             if (round % 2 != 0) {
@@ -799,8 +840,12 @@ public class Controller implements Serializable {
 
 
     }
+    /**
+     * Kollar med alla skatter om draget hamnade på en av deras indexplatser.
+     * Om rätt ändrar boolean till att den är hittad
+     * @author Ola Persson
+     */
 
-    //Kollar med alla skatter om draget hamnade på en av deras indexplatser. Om rätt ändrar boolean till att den är hittad
     private void updateSkatter() {
         if (spelplan.getSkatt1().getIndexEttI() == lastMove[0] && spelplan.getSkatt1().getIndexEttJ() == lastMove[1]) {
             spelplan.getSkatt1().setB1(true);
@@ -870,8 +915,12 @@ public class Controller implements Serializable {
 
 
     }
+    /**
+     * Uppdaterar färgen på knappen beroende på vilken sort det var
+     * Lägger också till info till textrutan
+     * @author Ola Persson
+     */
 
-    //Uppdaterar färgen på knappen beroende på vilken sort det var OBS Lägger också till info till textrutan
     private void updateFärgSpelplan() {
         if (spelplan.getTypeOfRuta(lastMove[0], lastMove[1]) instanceof TomRuta) {
             mainframe.getMainPanel().getLeftPanel().getButton(lastMove[0], lastMove[1]).setBackground(Color.black);
@@ -1010,69 +1059,7 @@ public class Controller implements Serializable {
         mainframe.getMainPanel().getRightPanel().getInfoFönster().setListData(hs.toArray());
     }
 
-    public MainFrame getMainframe() {
-        return mainframe;
-    }
 
-    public void setMainframe(MainFrame mainframe) {
-        this.mainframe = mainframe;
-    }
-
-    public Spelplan getSpelplan() {
-        return spelplan;
-    }
-
-    public void setSpelplan(Spelplan spelplan) {
-        this.spelplan = spelplan;
-    }
-
-    public int[] getLastMove() {
-        return lastMove;
-    }
-
-    public void setLastMove(int[] lastMove) {
-        this.lastMove = lastMove;
-    }
-
-    public Spelare getPlayer1() {
-        return player1;
-    }
-
-    public void setPlayer1(Spelare player1) {
-        this.player1 = player1;
-    }
-
-    public Spelare getPlayer2() {
-        return player2;
-    }
-
-    public void setPlayer2(Spelare player2) {
-        this.player2 = player2;
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
-    }
-
-    public ArrayList<String> getInfoRuta() {
-        return infoRuta;
-    }
-
-    public void setInfoRuta(ArrayList<String> infoRuta) {
-        this.infoRuta = infoRuta;
-    }
-
-    public int getFällaCounter() {
-        return fällaCounter;
-    }
-
-    public void setFällaCounter(int fällaCounter) {
-        this.fällaCounter = fällaCounter;
-    }
 
     /**
      * Metod som används för att göra de spelknappar som har används blir disabled när man laddar ett spel

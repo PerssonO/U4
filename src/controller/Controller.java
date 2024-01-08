@@ -445,9 +445,7 @@ public class Controller implements Serializable {
         do {
             slump1 = slump.nextInt(10);
             slump2 = slump.nextInt(10);
-            if (spelplan.getRuta(slump1, slump2) != null) {
-
-            } else {
+            if ((spelplan.getRuta(slump1, slump2) == null) || (spelplan.getRuta(slump1, slump2) instanceof TomRuta )){
                 spelplan.addRuta(slump1, slump2, new FällaRuta());
                 lagttill = true;
             }
@@ -457,9 +455,7 @@ public class Controller implements Serializable {
         do {
             slump1 = slump.nextInt(10);
             slump2 = slump.nextInt(10);
-            if (spelplan.getRuta(slump1, slump2) != null) {
-
-            } else {
+            if ((spelplan.getRuta(slump1, slump2) == null) || (spelplan.getRuta(slump1, slump2) instanceof TomRuta )){
                 spelplan.addRuta(slump1, slump2, new FällaRuta());
                 lagttill = true;
             }
@@ -470,9 +466,7 @@ public class Controller implements Serializable {
         do {
             slump1 = slump.nextInt(10);
             slump2 = slump.nextInt(10);
-            if (spelplan.getRuta(slump1, slump2) != null) {
-
-            } else {
+            if ((spelplan.getRuta(slump1, slump2) == null) || (spelplan.getRuta(slump1, slump2) instanceof TomRuta )){
                 spelplan.addRuta(slump1, slump2, new FällaRuta());
                 lagttill = true;
             }

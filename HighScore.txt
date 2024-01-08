@@ -1,4 +1,5 @@
 test,675
+Ola,180
 Anonym,-18
 Jonatan,-48
-Ola,180
+Anonym,70
